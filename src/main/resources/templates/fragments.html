@@ -6,6 +6,12 @@
 
     <!-- Import CSS from Webjars -->
     <th:block th:fragment="import-css">
+      <!-- FONTAWESOME -->
+      <link
+        rel="stylesheet"
+        th:href="@{/webjars/font-awesome/6.7.2/css/all.min.css}"
+      />
+
       <!-- BOOTSTRAP CSS -->
       <link
         rel="stylesheet"
@@ -16,6 +22,9 @@
         src="/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js"
         defer
       ></script>
+
+      <!-- CUSTOM CSS -->
+      <link rel="stylesheet" th:href="@{/css/style.css}" />
     </th:block>
   </head>
   <body>

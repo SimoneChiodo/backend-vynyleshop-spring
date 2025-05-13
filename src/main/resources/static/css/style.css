@@ -1,0 +1,52 @@
+/* RESET */
+.reset-ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.reset-a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* UTILITIES */
+.h-100vh {
+  height: 100vh;
+}
+
+.font-size-4 {
+  font-size: 4rem;
+}
+
+.font-size-3 {
+  font-size: 3rem;
+}
+
+.font-size-2_5 {
+  font-size: 2.5rem;
+}
+
+.font-size-2 {
+  font-size: 2rem;
+}
+
+.hover:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.vynil-line {
+  position: absolute;
+  left: 6%;
+  top: 0;
+
+  height: 100%;
+  width: 200px;
+  overflow: hidden;
+}
+
+.vynil-img {
+  width: 100%;
+  height: auto;
+}
