@@ -5,6 +5,7 @@ import java.util.List;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.persistence.Entity;
@@ -171,10 +172,14 @@ public class Vynil {
 
   // Methods to convert tracklist to/from List<String>
   // Assuming tracklist is a JSON array string like: ["Track 1", "Track 2", "Track 3"]
-  public List<String> getTracklistAsList() throws Exception {
-      ObjectMapper objectMapper = new ObjectMapper();
-      return objectMapper.readValue(this.tracklist, List.class);
-  }
+  public List<String> getTracklistAsList() {
+    try {
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readValue(this.tracklist, new TypeReference<List<String>>() {});
+    } catch (Exception e) {
+        return List.of(); // Return an empty list in case of error
+    }
+}
 
   public void setTracklistFromList(List<String> tracks) throws Exception {
       ObjectMapper objectMapper = new ObjectMapper();
