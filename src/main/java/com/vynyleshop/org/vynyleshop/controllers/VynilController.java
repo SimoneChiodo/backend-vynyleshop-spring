@@ -27,7 +27,8 @@ public class VynilController {
 
   // GET
   @GetMapping()
-  public String index() {
+  public String index(Model model) {
+    model.addAttribute("vynilList", vynilService.findAll());
     return "vynil/index";
   }
 

@@ -3,7 +3,11 @@ package com.vynyleshop.org.vynyleshop.model;
 import java.time.Year;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.vynyleshop.org.vynyleshop.service.ArtistService;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -35,7 +39,7 @@ public class Vynil {
   private Integer available;
 
   @NotNull(message = "Tracklist cannot be null")
-  private List<String> tracklist;
+  private String tracklist;
   
   @NotBlank(message = "Genre cannot be blank")
   private String genre; 
@@ -95,11 +99,11 @@ public class Vynil {
     this.available = available;
   }
 
-  public List<String> getTracklist() {
+  public String getTracklist() {
     return this.tracklist;
   }
 
-  public void setTracklist(List<String> tracklist) {
+  public void setTracklist(String tracklist) {
     this.tracklist = tracklist;
   }
 
@@ -165,6 +169,18 @@ public class Vynil {
 
   public void setCountry(String country) {
     this.country = country;
+  }
+
+  // Methods to convert tracklist to/from List<String>
+  // Assuming tracklist is a JSON array string like: ["Track 1", "Track 2", "Track 3"]
+  public List<String> getTracklistAsList() throws Exception {
+      ObjectMapper objectMapper = new ObjectMapper();
+      return objectMapper.readValue(this.tracklist, List.class);
+  }
+
+  public void setTracklistFromList(List<String> tracks) throws Exception {
+      ObjectMapper objectMapper = new ObjectMapper();
+      this.tracklist = objectMapper.writeValueAsString(tracks);
   }
 
 }
