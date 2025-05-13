@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VynyleShop - Vynil Detail</title>
+
+    <!-- IMPORT CSS -->
+    <th:block th:replace="~{fragments :: import-css}"></th:block>
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header>
+      <th:block th:replace="~{fragments :: navbar('none')}"></th:block>
+    </header>
+
+    <!-- MAIN -->
+    <main class="mb-5">
+      <div class="container mb-3">
+        <!-- Back Button -->
+        <a
+          class="btn btn-primary btn-lg text-start"
+          th:href="@{/vynil}">
+          <i class="fa-solid fa-chevron-left fa-lg"></i>
+        </a>
+        <!-- NOTE: I use another container because of the below text-center attribute (It brake the responsive) -->
+      </div>
+
+      <div class="container text-center text-md-start" th:object="${vynil}"><!-- Title -->
+        <h1 class="font-size-3 text-center">Vynil Detail</h1>
+
+        <!-- Data -->
+        <h1>
+          "[[*{name}]]" <span class="fs-2">by</span> "[[*{artist.getName()}]]"
+        </h1>
+        <div class="d-flex flex-column flex-md-row my-3">
+          <div class="left flex-grow-1">
+            <h3>ID: [[*{id}]]</h1>
+            <h3>Genre: [[*{genre}]]</h3>
+            <h3>Release year: [[*{releaseYear}]]</h3>
+            <h3>Available: [[*{available}]]</h3>
+            <h3>Format: [[*{format}]]</h3>
+          </div>
+          <div class="right flex-grow-1">
+            <h3>Code: [[*{code}]]</h3>
+            <h3>Edition: [[*{edition}]]</h3>
+            <h3>Label: [[*{label}]]</h3>
+            <h3>Country: [[*{country}]]</h3>
+            <h3>Color: [[*{color}]]</h3>
+          </div>
+        </div>
+
+        <h3>Tracklist: <span class="fs-4" th:each="track : *{tracklistAsList}">"[[${track}]]" </span></h3>
+      </div>
+    </main>
+  </body>
+</html>

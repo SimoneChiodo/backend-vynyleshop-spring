@@ -3,11 +3,9 @@ package com.vynyleshop.org.vynyleshop.model;
 import java.time.Year;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.vynyleshop.org.vynyleshop.service.ArtistService;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -38,7 +36,7 @@ public class Vynil {
   @NotNull(message = "Available cannot be null")
   private Integer available;
 
-  @NotNull(message = "Tracklist cannot be null")
+  @NotBlank(message = "Tracklist cannot be blank")
   private String tracklist;
   
   @NotBlank(message = "Genre cannot be blank")
