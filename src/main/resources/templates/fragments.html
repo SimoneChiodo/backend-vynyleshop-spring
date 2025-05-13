@@ -95,26 +95,33 @@
             </ul>
 
             <!-- SEARCH BAR -->
-            <form class="d-flex" role="search">
+            <form class="d-flex me-4" role="search">
               <input
                 class="form-control me-2"
                 type="search"
-                placeholder="Search"
+                placeholder="Search Vynil"
                 aria-label="Search"
               />
               <button class="btn btn-outline-success" type="submit">
-                Search Vynil
+                <i class="fa-solid fa-magnifying-glass"></i>
               </button>
             </form>
           </div>
 
           <div class="user-info">
-            Logged user:
-            <span sec:authentication="name" class="fw-bold me-2"></span> Roles:
+            <!-- User name -->
+            <span sec:authentication="name" class="fw-bold me-2"></span>
+
+            <!-- User role -->
             <span
-              sec:authentication="authorities"
-              class="fst-italic me-2"
-            ></span>
+              >(<span
+                sec:authentication="authorities"
+                class="fst-italic me-2"
+              ></span
+              >)</span
+            >
+
+            <!-- Sign out button -->
             <a href="/logout" class="btn btn-small btn-outline-primary"
               >Sign out</a
             >
