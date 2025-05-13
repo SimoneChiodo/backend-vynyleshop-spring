@@ -41,6 +41,6 @@ public class ArtistService {
 
   //SEARCH
   public List<Artist> searchByName(String name) {
-    return artistRepository.findByNomeContainingIgnoreCase(name);
+    return artistRepository.findByNameContainingIgnoreCase(name);
   }
 }

@@ -23,8 +23,8 @@ public class Vynil {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-  @NotBlank(message = "Title cannot be blank")
-  private String title;
+  @NotBlank(message = "Name cannot be blank")
+  private String name;
 
   @ManyToOne
   @JoinColumn(name = "artist_id", referencedColumnName = "id")
@@ -71,12 +71,12 @@ public class Vynil {
     this.id = id;
   }
 
-  public String getTitle() {
-    return this.title;
+  public String getName() {
+    return this.name;
   }
 
-  public void setTitle(String title) {
-    this.title = title;
+  public void setName(String name) {
+    this.name = name;
   }
 
   public Artist getArtist() {

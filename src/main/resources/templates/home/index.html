@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VynyleShop - Home</title>
+
+    <!-- IMPORT CSS -->
+    <!-- <th:block th:replace="~{fragments :: import-css}"></th:block> -->
+    <link
+      th:rel="stylesheet"
+      th:href="@{/webjars/bootstrap/5.3.5/css/bootstrap.min.css}"
+    />
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header>
+      <th:block th:replace="~{fragments :: navbar('home')}"></th:block>
+    </header>
+  </body>
+</html>

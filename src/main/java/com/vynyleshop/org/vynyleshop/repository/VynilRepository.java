@@ -10,5 +10,5 @@ public interface VynilRepository extends JpaRepository<Vynil, Integer> {
   // JpaRepository fornisce già metodi per CRUD e ricerca
 
   // Per la Ricerca per nome, creiamo un metodo personalizzato
-  public List<Vynil> findByNomeContainingIgnoreCase(String name);
+  public List<Vynil> findByNameContainingIgnoreCase(String name);
 }

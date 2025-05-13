@@ -41,7 +41,7 @@ public class VynilService {
 
   //SEARCH
   public List<Vynil> searchByName(String name) {
-    return vynilRepository.findByNomeContainingIgnoreCase(name);
+    return vynilRepository.findByNameContainingIgnoreCase(name);
   }
 
 }
