@@ -95,7 +95,7 @@
             </ul>
 
             <!-- SEARCH BAR -->
-            <form class="d-flex me-4" role="search">
+            <form class="d-flex mb-3 mb-lg-0 me-4" role="search">
               <input
                 class="form-control me-2"
                 type="search"
@@ -106,25 +106,25 @@
                 <i class="fa-solid fa-magnifying-glass"></i>
               </button>
             </form>
-          </div>
 
-          <div class="user-info">
-            <!-- User name -->
-            <span sec:authentication="name" class="fw-bold me-2"></span>
+            <div class="user-info text-end text-lg-start">
+              <!-- User name -->
+              <span sec:authentication="name" class="fw-bold me-2"></span>
 
-            <!-- User role -->
-            <span
-              >(<span
-                sec:authentication="authorities"
-                class="fst-italic me-2"
-              ></span
-              >)</span
-            >
+              <!-- User role -->
+              <span
+                >(<span
+                  sec:authentication="authorities"
+                  class="fst-italic me-2"
+                ></span
+                >)</span
+              >
 
-            <!-- Sign out button -->
-            <a href="/logout" class="btn btn-small btn-outline-primary"
-              >Sign out</a
-            >
+              <!-- Sign out button -->
+              <a href="/logout" class="btn btn-small btn-outline-primary"
+                >Sign out</a
+              >
+            </div>
           </div>
         </div>
       </nav>
