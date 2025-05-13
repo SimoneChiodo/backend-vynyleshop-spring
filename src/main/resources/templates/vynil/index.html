@@ -27,8 +27,8 @@
               <th scope="col">#</th>
               <th scope="col">Name</th>
               <th scope="col">Artist</th>
-              <th scope="col">Format</th>
-              <th scope="col">Code</th>
+              <th scope="col" class="d-none d-md-table-cell">Format</th>
+              <th scope="col" class="d-none d-sm-table-cell">Code</th>
               <th scope="col">Actions</th>
             </tr>
           </thead>
@@ -37,8 +37,8 @@
               <th scope="row">[[*{id}]]</th>
               <td>[[*{name}]]</td>
               <td>[[*{artist.getName()}]]</td>
-              <td>[[*{format}]]</td>
-              <td>[[*{code}]]</td>
+              <td class="d-none d-md-table-cell">[[*{format}]]</td>
+              <td class="d-none d-sm-table-cell">[[*{code}]]</td>
               <td class="p-0">
                 <a class="btn btn-primary btn-sm m-1" th:href=@{/vynil/{id}(id=*{id})}>
                   <i class="fa-solid fa-eye"></i
