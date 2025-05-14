@@ -23,8 +23,9 @@
           <div class="left">
             <a
               class="btn btn-primary btn-lg"
-              th:href="@{/vynil}">
+              th:href="@{/vynil}"> 
               <i class="fa-solid fa-chevron-left fa-lg"></i>
+              <span class="d-none d-md-inline">Back to Vynil List</span>
             </a>
           </div>
 
@@ -94,11 +95,12 @@
 
         <!-- Data -->
         <h1>
-          "[[*{name}]]" <span class="fs-2">by</span> "[[*{artist.getName()}]]"
-        </h1>
+          "[[*{name}]]" <span class="fs-2">by</span> 
+          "<a th:href="@{/artist/{id}(id=*{artist.getId()})}">[[*{artist.getName()}]]</a>"
+        </h1> 
         <div class="d-flex flex-column flex-md-row my-3">
           <div class="left flex-grow-1">
-            <h3>ID: [[*{id}]]</h1>
+            <h3>ID: [[*{id}]]</h3>
             <h3>Genre: [[*{genre}]]</h3>
             <h3>Release year: [[*{releaseYear}]]</h3>
             <h3>Available: [[*{available}]]</h3>

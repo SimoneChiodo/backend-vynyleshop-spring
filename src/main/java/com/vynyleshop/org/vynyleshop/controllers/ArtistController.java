@@ -42,7 +42,9 @@ public class ArtistController {
 
   // CREATE
   @GetMapping("/create")
-  public String create() {
+  public String create(Model model) {
+    model.addAttribute("artist", new Artist());
+    model.addAttribute("isCreate", true); 
     return "artist/create-or-edit";
   }
 
@@ -51,11 +53,12 @@ public class ArtistController {
   public String store(@Valid @ModelAttribute Artist formArtist, BindingResult bindingResult, Model model) {
     if (bindingResult.hasErrors()) {
       model.addAttribute("artist", formArtist);
+    model.addAttribute("isCreate", true); 
       return "artist/create-or-edit";
     }
 
     artistService.create(formArtist);
-    return "redirect:/artist/index";
+    return "redirect:/artist";
   }
 
   // EDIT
@@ -63,6 +66,7 @@ public class ArtistController {
   public String edit(@PathVariable Integer id, Model model) {
     Artist artist = artistService.findById(id);
     model.addAttribute("artist", artist);
+    model.addAttribute("isCreate", true); 
     return "artist/create-or-edit";
   }
 
@@ -71,18 +75,19 @@ public class ArtistController {
   public String update(@Valid @ModelAttribute Artist formArtist, BindingResult bindingResult, Model model) {
     if (bindingResult.hasErrors()) {
       model.addAttribute("artist", formArtist);
+      model.addAttribute("isCreate", true); 
       return "artist/create-or-edit";
     }
 
     artistService.update(formArtist);
-    return "redirect:/artist/show/" + formArtist.getId();
+    return "redirect:/artist/" + formArtist.getId();
   }
 
   // DELETE
-  @GetMapping("/delete/{id}")
+  @PostMapping("/delete/{id}")
   public String delete(@PathVariable Integer id) {
     artistService.delete(id);
-    return "redirect:/artist/index";
+    return "redirect:/artist";
   }
 
   // SEARCH
