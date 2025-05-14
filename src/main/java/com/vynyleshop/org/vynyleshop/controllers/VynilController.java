@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.vynyleshop.org.vynyleshop.model.Vynil;
+import com.vynyleshop.org.vynyleshop.service.ArtistService;
 import com.vynyleshop.org.vynyleshop.service.VynilService;
 
 import jakarta.validation.Valid;
@@ -24,6 +25,8 @@ public class VynilController {
   
   @Autowired
   private VynilService vynilService;
+  @Autowired
+  private ArtistService artistService;
 
   // GET
   @GetMapping()
@@ -42,7 +45,8 @@ public class VynilController {
 
   // CREATE
   @GetMapping("/create")
-  public String create() {
+  public String create(Model model) {
+    model.addAttribute("isCreate", true);
     return "vynil/create-or-edit";
   }
 
@@ -51,6 +55,7 @@ public class VynilController {
   public String store(@Valid @ModelAttribute Vynil formVynil, BindingResult bindingResult, Model model) {
     if (bindingResult.hasErrors()) {
       model.addAttribute("vynil", formVynil);
+      model.addAttribute("isCreate", true);
       return "vynil/create-or-edit";
     }
 
@@ -63,6 +68,8 @@ public class VynilController {
   public String edit(@PathVariable Integer id, Model model) {
     Vynil vynil = vynilService.findById(id);
     model.addAttribute("vynil", vynil);
+      model.addAttribute("isCreate", false);
+      model.addAttribute("artistList", artistService.findAll());
     return "vynil/create-or-edit";
   }
 
@@ -71,11 +78,13 @@ public class VynilController {
   public String update(@Valid @ModelAttribute Vynil formVynil, BindingResult bindingResult, Model model) {
     if (bindingResult.hasErrors()) {
       model.addAttribute("vynil", formVynil);
+      model.addAttribute("isCreate", false);
+      model.addAttribute("artistList", artistService.findAll());
       return "vynil/create-or-edit";
     }
 
     vynilService.update(formVynil);
-    return "redirect:/vynil/show/" + formVynil.getId();
+    return "redirect:/vynil/" + formVynil.getId();
   }
 
   // DELETE

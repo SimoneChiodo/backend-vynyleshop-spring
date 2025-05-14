@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title  th:text="${isCreate} ? 'VynyleShop - Vynil Create' : 'VynyleShop - Vynil Edit'"></title>
+
+    <!-- IMPORT CSS -->
+    <th:block th:replace="~{fragments :: import-css}"></th:block>
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header>
+      <th:block th:replace="~{fragments :: navbar('none')}"></th:block>
+    </header>
+
+    <!-- MAIN -->
+    <main class="mb-5">
+      <div class="container text-center text-md-start" th:object="${vynil}">
+        <!-- Buttons -->
+        <div class="w-100 text-start">
+          <!-- Back Button -->
+          <a
+            class="btn btn-primary btn-lg"
+            th:href="@{/vynil}"> 
+            <i class="fa-solid fa-chevron-left fa-lg"></i>
+            <span class="d-none d-md-inline">Back to Vynil List</span>
+          </a>
+        </div>
+
+        <!-- Title -->
+        <h1 class="font-size-3 text-center" th:text="${isCreate} ? 'Vynil Create' : 'Vynil Edit'"></h1>
+
+        <!-- Form -->
+        <form class="row g-3"
+          th:action="${isCreate} ? @{|/vynil/create|} : @{/vynil/edit/{id}(id=*{id})}"
+          method="POST">
+          <!-- NAME -->
+          <div class="col-md-6">
+            <label for="inputName" class="form-label">Name</label>
+            <input id="inputName" class="form-control" type="text" th:field="*{name}" th:errorClass="is-invalid" />
+            <div class="invalid-feedback">
+              <ul><li th:each="error : ${#fields.errors('name')}" th:text="${error}"></li></ul>
+            </div>
+          </div>
+
+          <!-- ARTIST (SELECT) -->
+          <div class="col-md-6">
+            <label for="inputArtist" class="form-label">Artist</label>
+            <select id="inputArtist" class="form-select" th:field="*{artist}" th:errorClass="is-invalid">
+              <option th:each="artist : ${artistList}" th:value="${artist.id}" th:text="${artist.name}"></option>
+            </select>
+            <div class="invalid-feedback">
+              <ul><li th:each="error : ${#fields.errors('artist')}" th:text="${error}"></li></ul>
+            </div>
+          </div>
+
+          <!-- AVAILABLE -->
+          <div class="col-md-6">
+            <label for="inputAvailable" class="form-label">Available</label>
+            <input id="inputAvailable" class="form-control" type="number" th:field="*{available}" th:errorClass="is-invalid" />
+            <div class="invalid-feedback">
+              <ul><li th:each="error : ${#fields.errors('available')}" th:text="${error}"></li></ul>
+            </div>
+          </div>
+
+          <!-- GENRE -->
+          <div class="col-md-6">
+            <label for="inputGenre" class="form-label">Genre</label>
+            <input id="inputGenre" class="form-control" type="text" th:field="*{genre}" th:errorClass="is-invalid" />
+            <div class="invalid-feedback">
+              <ul><li th:each="error : ${#fields.errors('genre')}" th:text="${error}"></li></ul>
+            </div>
+          </div>
+
+          <!-- TRACKLIST (TEXTAREA) -->
+          <div class="col-md-12">
+            <label for="inputTracklist" class="form-label">Tracklist</label>
+            <textarea id="inputTracklist" class="form-control" rows="2" th:field="*{tracklist}" th:errorClass="is-invalid"></textarea>
+            <div class="invalid-feedback">
+              <ul>
+                <li th:each="error : ${#fields.errors('tracklist')}" th:text="${error}"></li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- FORMAT -->
+          <div class="col-md-4">
+            <label for="inputFormat" class="form-label">Format</label>
+            <input id="inputFormat" class="form-control" type="text" th:field="*{format}" th:errorClass="is-invalid" />
+            <div class="invalid-feedback">
+              <ul><li th:each="error : ${#fields.errors('format')}" th:text="${error}"></li></ul>
+            </div>
+          </div>
+
+          <!-- COLOR -->
+          <div class="col-md-4">
+            <label for="inputColor" class="form-label">Color</label>
+            <input id="inputColor" class="form-control" type="text" th:field="*{color}" th:errorClass="is-invalid" />
+            <div class="invalid-feedback">
+              <ul><li th:each="error : ${#fields.errors('color')}" th:text="${error}"></li></ul>
+            </div>
+          </div>
+
+          <!-- EDITION -->
+          <div class="col-md-4">
+            <label for="inputEdition" class="form-label">Edition</label>
+            <input id="inputEdition" class="form-control" type="text" th:field="*{edition}" th:errorClass="is-invalid" />
+            <div class="invalid-feedback">
+              <ul><li th:each="error : ${#fields.errors('edition')}" th:text="${error}"></li></ul>
+            </div>
+          </div>
+
+          <!-- CODE -->
+          <div class="col-md-6">
+            <label for="inputCode" class="form-label">Code</label>
+            <input id="inputCode" class="form-control" type="text" th:field="*{code}" th:errorClass="is-invalid" />
+            <div class="invalid-feedback">
+              <ul><li th:each="error : ${#fields.errors('code')}" th:text="${error}"></li></ul>
+            </div>
+          </div>
+
+          <!-- RELEASE YEAR -->
+          <div class="col-md-6">
+            <label for="inputYear" class="form-label">Release Year</label>
+            <input id="inputYear" class="form-control" type="text" th:field="*{releaseYear}" th:errorClass="is-invalid" />
+            <div class="invalid-feedback">
+              <ul><li th:each="error : ${#fields.errors('releaseYear')}" th:text="${error}"></li></ul>
+            </div>
+          </div>
+
+          <!-- LABEL -->
+          <div class="col-md-6">
+            <label for="inputLabel" class="form-label">Label</label>
+            <input id="inputLabel" class="form-control" type="text" th:field="*{label}" th:errorClass="is-invalid" />
+            <div class="invalid-feedback">
+              <ul><li th:each="error : ${#fields.errors('label')}" th:text="${error}"></li></ul>
+            </div>
+          </div>
+
+          <!-- COUNTRY -->
+          <div class="col-md-6">
+            <label for="inputCountry" class="form-label">Country</label>
+            <input id="inputCountry" class="form-control" type="text" th:field="*{country}" th:errorClass="is-invalid" />
+            <div class="invalid-feedback">
+              <ul><li th:each="error : ${#fields.errors('country')}" th:text="${error}"></li></ul>
+            </div>
+          </div>
+
+          <!-- SUBMIT -->
+          <div class="col-12 text-center mt-4">
+            <button class="btn btn-primary btn-lg" type="submit" th:text="${isCreate} ? 'Create Vynil' : 'Update Vynil'"></button>
+          </div>
+        </form>
+    </main>
+  </body>
+</html>
