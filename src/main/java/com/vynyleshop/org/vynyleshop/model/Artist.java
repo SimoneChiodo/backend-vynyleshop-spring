@@ -55,4 +55,8 @@ public class Artist {
     this.vynils = vynils;
   }
 
+  public Integer getNumberOfVynils() {
+    return this.vynils.size();
+  }
+
 }

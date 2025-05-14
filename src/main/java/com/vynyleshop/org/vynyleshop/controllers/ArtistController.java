@@ -27,7 +27,8 @@ public class ArtistController {
 
   // GET
   @GetMapping()
-  public String index() {
+  public String index(Model model) {
+    model.addAttribute("artistList", artistService.findAll());
     return "artist/index";
   }
 
