@@ -16,17 +16,80 @@
 
     <!-- MAIN -->
     <main class="mb-5">
-      <div class="container mb-3">
-        <!-- Back Button -->
-        <a
-          class="btn btn-primary btn-lg text-start"
-          th:href="@{/vynil}">
-          <i class="fa-solid fa-chevron-left fa-lg"></i>
-        </a>
-        <!-- NOTE: I use another container because of the below text-center attribute (It brake the responsive) -->
-      </div>
+      <div class="container text-center text-md-start" th:object="${vynil}">
+        <!-- Buttons -->
+        <div class="w-100 d-flex justify-content-between mb-3">
+          <!-- Back Button -->
+          <div class="left">
+            <a
+              class="btn btn-primary btn-lg"
+              th:href="@{/vynil}">
+              <i class="fa-solid fa-chevron-left fa-lg"></i>
+            </a>
+          </div>
 
-      <div class="container text-center text-md-start" th:object="${vynil}"><!-- Title -->
+          <!-- Edit and Delete Buttons -->
+          <div class="right"
+              sec:authorize="hasAuthority('ADMIN')">
+            <a class="btn btn-warning btn-lg" th:href=@{/vynil/edit/{id}(id=*{id})}>
+              <i class="fa-solid fa-pencil fa-lg"></i>
+            </a>
+
+            <!-- Il pulsante DELETE apre una modal di conferma -->
+            <button
+              type="button"
+              class="btn btn-danger btn-lg"
+              data-bs-toggle="modal"
+              th:data-bs-target="'#delete-modal-' + *{id}"
+            >
+              <i class="fa-solid fa-trash fa-lg"></i>
+            </button>
+            <!-- Delete Modal -->
+            <div
+              sec:authorize="hasAuthority('ADMIN')"
+              class="modal fade"
+              th:id="'delete-modal-' + *{id}"
+              tabindex="-1"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <!-- Modal Header -->
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">
+                      Deleting "[[*{name}]]"
+                    </h1>
+                  </div>
+                  <!-- Modal Body -->
+                  <div class="modal-body">
+                    Do you really want to delete this?
+                  </div>
+                  <!-- Modal Footer -->
+                  <div class="modal-footer">
+                    <!-- Delete e' una chiamata POST, quindi necessita di un form -->
+                    <form
+                      th:action="@{/vynil/delete/{id}(id=*{id})}"
+                      method="POST"
+                    >
+                      <button class="btn btn-danger" type="submit">
+                        YES, I AM SURE
+                      </button>
+                    </form>
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-bs-dismiss="modal"
+                    >
+                      No
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Title -->
         <h1 class="font-size-3 text-center">Vynil Detail</h1>
 
         <!-- Data -->
