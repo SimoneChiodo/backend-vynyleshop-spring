@@ -107,7 +107,8 @@
         </table>
 
         <!-- Add Vynil Button -->
-        <div class="w-100 text-center mt-4">
+        <div class="w-100 text-center mt-4"
+        sec:authorize="hasAuthority('ADMIN')">
           <a
             class="btn btn-outline-success btn-lg"
             th:href="@{/vynil/create}"

@@ -35,23 +35,13 @@
           <i class="fa-solid fa-magnifying-glass fa-sm"></i>
           <a class="reset-a hover" th:href="@{/artist}">Artist list</a>
         </li>
-        <li class="mb-2">
+        <li class="mb-2" sec:authorize="hasAuthority('ADMIN')">
           <i class="fa-solid fa-plus fa-sm"></i>
-          <a
-            class="reset-a hover"
-            sec:authorize="hasAuthority('ADMIN')"
-            th:href="@{/vynil/create}"
-            >Create vynil</a
-          >
+          <a class="reset-a hover" th:href="@{/vynil/create}">Create vynil</a>
         </li>
-        <li class="mb-2">
+        <li class="mb-2" sec:authorize="hasAuthority('ADMIN')">
           <i class="fa-solid fa-plus fa-sm"></i>
-          <a
-            class="reset-a hover"
-            sec:authorize="hasAuthority('ADMIN')"
-            th:href="@{/artist/create}"
-            >Create artist</a
-          >
+          <a class="reset-a hover" th:href="@{/artist/create}">Create artist</a>
         </li>
       </ul>
 
