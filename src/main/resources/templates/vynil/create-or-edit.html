@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title  th:text="${isCreate} ? 'VynyleShop - Vynil Create' : 'VynyleShop - Vynil Edit'"></title>
+    <title th:text="${isCreate} ? 'VynyleShop - Vynil Create' : 'VynyleShop - Vynil Edit'"></title>
 
     <!-- IMPORT CSS -->
     <th:block th:replace="~{fragments :: import-css}"></th:block>
@@ -11,7 +11,7 @@
   <body>
     <!-- HEADER -->
     <header>
-      <th:block th:replace="~{fragments :: navbar('none')}"></th:block>
+      <th:block th:replace="~{fragments :: navbar(${isCreate} ? 'createVynil' : 'none')}"></th:block>
     </header>
 
     <!-- MAIN -->

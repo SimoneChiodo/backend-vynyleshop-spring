@@ -3,6 +3,7 @@ package com.vynyleshop.org.vynyleshop.model;
 import java.time.Year;
 import java.util.List;
 
+import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -38,6 +39,7 @@ public class Vynil {
   private Integer available;
 
   @NotBlank(message = "Tracklist cannot be blank")
+  @Length(max = 500, message = "Tracklist cannot exceed 500 characters")
   private String tracklist;
   
   @NotBlank(message = "Genre cannot be blank")

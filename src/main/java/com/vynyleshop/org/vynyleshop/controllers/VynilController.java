@@ -46,7 +46,9 @@ public class VynilController {
   // CREATE
   @GetMapping("/create")
   public String create(Model model) {
+    model.addAttribute("vynil", new Vynil());
     model.addAttribute("isCreate", true);
+    model.addAttribute("artistList", artistService.findAll()); 
     return "vynil/create-or-edit";
   }
 
@@ -56,11 +58,12 @@ public class VynilController {
     if (bindingResult.hasErrors()) {
       model.addAttribute("vynil", formVynil);
       model.addAttribute("isCreate", true);
+      model.addAttribute("artistList", artistService.findAll()); 
       return "vynil/create-or-edit";
     }
 
     vynilService.create(formVynil);
-    return "redirect:/vynil/index";
+    return "redirect:/vynil";
   }
 
   // EDIT
@@ -68,8 +71,8 @@ public class VynilController {
   public String edit(@PathVariable Integer id, Model model) {
     Vynil vynil = vynilService.findById(id);
     model.addAttribute("vynil", vynil);
-      model.addAttribute("isCreate", false);
-      model.addAttribute("artistList", artistService.findAll());
+    model.addAttribute("isCreate", false);
+    model.addAttribute("artistList", artistService.findAll());
     return "vynil/create-or-edit";
   }
 
@@ -88,17 +91,18 @@ public class VynilController {
   }
 
   // DELETE
-  @GetMapping("/delete/{id}")
+  @PostMapping("/delete/{id}")
   public String delete(@PathVariable Integer id) {
     vynilService.delete(id);
-    return "redirect:/vynil/index";
+    return "redirect:/vynil";
   }
 
   // SEARCH
   @GetMapping("/search")
   public String search(@RequestParam String name, Model model) {
     List<Vynil> vynils = vynilService.searchByName(name);
-    model.addAttribute("vynils", vynils);
+    model.addAttribute("vynilList", vynils);
+    model.addAttribute("searchName", name);
     return "vynil/index";
   }
   
