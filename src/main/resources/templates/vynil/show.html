@@ -94,28 +94,33 @@
         <h1 class="font-size-3 text-center">Vynil Detail</h1>
 
         <!-- Data -->
-        <h1>
-          "[[*{name}]]" <span class="fs-2">by</span> 
+        <h1 class="fw-normal">
+          "[[*{name}]]" <span class="fs-2 fw-bold">by</span> 
           "<a th:href="@{/artist/{id}(id=*{artist.getId()})}">[[*{artist.getName()}]]</a>"
         </h1> 
         <div class="d-flex flex-column flex-md-row my-3">
           <div class="left flex-grow-1">
-            <h3>ID: [[*{id}]]</h3>
-            <h3>Genre: [[*{genre}]]</h3>
-            <h3>Release year: [[*{releaseYear}]]</h3>
-            <h3>Available: [[*{available}]]</h3>
-            <h3>Format: [[*{format}]]</h3>
+            <h3>ID: <span class="fw-normal">[[*{id}]]</span></h3>
+            <h3>Genre: <span class="fw-normal">[[*{genre}]]</span></h3>
+            <h3>Release year: <span class="fw-normal">[[*{releaseYear}]]</span></h3>
+            <h3>Available: <span class="fw-normal">[[*{available}]]</span></h3>
+            <h3>Format: <span class="fw-normal">[[*{format}]]</span></h3>
           </div>
           <div class="right flex-grow-1">
-            <h3>Code: [[*{code}]]</h3>
-            <h3>Edition: [[*{edition}]]</h3>
-            <h3>Label: [[*{label}]]</h3>
-            <h3>Country: [[*{country}]]</h3>
-            <h3>Color: [[*{color}]]</h3>
+            <h3>Code: <span class="fw-normal">[[*{code}]]</span></h3>
+            <h3>Edition: <span class="fw-normal">[[*{edition}]]</span></h3>
+            <h3>Label: <span class="fw-normal">[[*{label}]]</span></h3>
+            <h3>Country: <span class="fw-normal">[[*{country}]]</span></h3>
+            <h3>Color: <span class="fw-normal">[[*{color}]]</span></h3>
           </div>
         </div>
 
-        <h3>Tracklist: <span class="fs-4" th:each="track : *{tracklistAsList}">"[[${track}]]" </span></h3>
+        <h3>Tracklist: 
+          <span class="fs-4 fw-normal d-block p-1" th:each="track, iterStat : *{tracklistAsList}">
+            <span>[[${iterStat.index + 1}]]- [[${track}]]</span>
+            "[[${track}]]" 
+          </span>
+        </h3>
       </div>
     </main>
   </body>
