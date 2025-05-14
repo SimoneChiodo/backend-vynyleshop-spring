@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title th:text="${isCreate} ? 'VynyleShop - Artist Create' : 'VynyleShop - Artist Edit'"></title>
+
+    <!-- IMPORT CSS -->
+    <th:block th:replace="~{fragments :: import-css}"></th:block>
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header>
+      <th:block th:replace="~{fragments :: navbar(${isCreate} ? 'createArtist' : 'none')}"></th:block>
+    </header>
+
+    <!-- MAIN -->
+    <main class="mb-5">
+      <div class="container text-center text-md-start" th:object="${artist}">
+        <!-- Buttons -->
+        <div class="w-100 text-start">
+          <!-- Back Button -->
+          <a
+            class="btn btn-primary btn-lg"
+            th:href="@{/artist}"> 
+            <i class="fa-solid fa-chevron-left fa-lg"></i>
+            <span class="d-none d-md-inline">Back to Artist List</span>
+          </a>
+        </div>
+
+        <!-- Title -->
+        <h1 class="font-size-3 text-center" th:text="${isCreate} ? 'Artist Create' : 'Artist Edit'"></h1>
+
+        <!-- Form -->
+        <form class="row g-3"
+          th:action="${isCreate} ? @{|/artist/create|} : @{/artist/edit/{id}(id=*{id})}"
+          method="POST">
+          <!-- NAME -->
+          <div class="col">
+            <label for="inputName" class="form-label">Name</label>
+            <input id="inputName" class="form-control" type="text" th:field="*{name}" th:errorClass="is-invalid" />
+            <div class="invalid-feedback">
+              <ul><li th:each="error : ${#fields.errors('name')}" th:text="${error}"></li></ul>
+            </div>
+          </div>
+
+          <!-- SUBMIT -->
+          <div class="col-12 text-center mt-4">
+            <button class="btn btn-primary btn-lg" type="submit" th:text="${isCreate} ? 'Create Artist' : 'Update Artist'"></button>
+          </div>
+        </form>
+    </main>
+  </body>
+</html>

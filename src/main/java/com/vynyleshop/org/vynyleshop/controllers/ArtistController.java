@@ -66,7 +66,7 @@ public class ArtistController {
   public String edit(@PathVariable Integer id, Model model) {
     Artist artist = artistService.findById(id);
     model.addAttribute("artist", artist);
-    model.addAttribute("isCreate", true); 
+    model.addAttribute("isCreate", false); 
     return "artist/create-or-edit";
   }
 
@@ -75,7 +75,7 @@ public class ArtistController {
   public String update(@Valid @ModelAttribute Artist formArtist, BindingResult bindingResult, Model model) {
     if (bindingResult.hasErrors()) {
       model.addAttribute("artist", formArtist);
-      model.addAttribute("isCreate", true); 
+      model.addAttribute("isCreate", false); 
       return "artist/create-or-edit";
     }
 
