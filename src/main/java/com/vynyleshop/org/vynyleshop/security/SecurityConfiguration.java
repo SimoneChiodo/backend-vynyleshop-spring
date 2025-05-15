@@ -19,6 +19,7 @@ public class SecurityConfiguration {
       .requestMatchers("artist", "artist/**").hasAnyAuthority("USER", "ADMIN")
       .requestMatchers("vynil/create", "vynil/edit/**", "vynil/delete/**").hasAuthority("ADMIN")
       .requestMatchers("artist/create", "artist/edit/**", "artist/delete/**").hasAuthority("ADMIN")
+      .requestMatchers("/api/**").permitAll() // Allow all API requests without authentication
     )
     .formLogin(withDefaults -> {})
     .logout(withDefaults -> {})
