@@ -35,7 +35,7 @@ public class ArtistController {
   // SHOW
   @GetMapping("/{id}")
   public String show(@PathVariable Integer id, Model model) {
-    Artist artist = artistService.findById(id);
+    Artist artist = artistService.findById(id).get();
     model.addAttribute("artist", artist);
     return "artist/show";
   }
@@ -64,7 +64,7 @@ public class ArtistController {
   // EDIT
   @GetMapping("/edit/{id}")
   public String edit(@PathVariable Integer id, Model model) {
-    Artist artist = artistService.findById(id);
+    Artist artist = artistService.findById(id).get();
     model.addAttribute("artist", artist);
     model.addAttribute("isCreate", false); 
     return "artist/create-or-edit";

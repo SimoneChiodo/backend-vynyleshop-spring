@@ -1,6 +1,7 @@
 package com.vynyleshop.org.vynyleshop.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,8 @@ public class ArtistService {
   }
 
   //SHOW
-  public Artist findById(Integer id) {
-    return artistRepository.findById(id).get();
+  public Optional<Artist> findById(Integer id) {
+    return artistRepository.findById(id);
   }
 
   //CREATE
