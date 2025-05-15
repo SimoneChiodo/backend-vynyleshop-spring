@@ -14,12 +14,12 @@ public class SecurityConfiguration {
   @Bean
   SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http.authorizeHttpRequests(auth -> auth
-      .requestMatchers("/**").hasAnyAuthority("USER", "ADMIN")
-      .requestMatchers("vynil", "vynil/**").hasAnyAuthority("USER", "ADMIN")
-      .requestMatchers("artist", "artist/**").hasAnyAuthority("USER", "ADMIN")
-      .requestMatchers("vynil/create", "vynil/edit/**", "vynil/delete/**").hasAuthority("ADMIN")
-      .requestMatchers("artist/create", "artist/edit/**", "artist/delete/**").hasAuthority("ADMIN")
-      .requestMatchers("/api/**").permitAll() // Allow all API requests without authentication
+    .requestMatchers("vynil", "vynil/**").hasAnyAuthority("USER", "ADMIN")
+    .requestMatchers("artist", "artist/**").hasAnyAuthority("USER", "ADMIN")
+    .requestMatchers("vynil/create", "vynil/edit/**", "vynil/delete/**").hasAuthority("ADMIN")
+    .requestMatchers("artist/create", "artist/edit/**", "artist/delete/**").hasAuthority("ADMIN")
+    .requestMatchers("/api/**").permitAll() // Allow all API requests without authentication
+    .requestMatchers("/**").hasAnyAuthority("USER", "ADMIN")
     )
     .formLogin(withDefaults -> {})
     .logout(withDefaults -> {})
