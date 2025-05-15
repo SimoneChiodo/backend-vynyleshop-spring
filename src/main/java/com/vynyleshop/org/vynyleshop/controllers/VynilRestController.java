@@ -8,12 +8,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+// import org.springframework.web.bind.annotation.PostMapping;
+// import org.springframework.web.bind.annotation.PutMapping;
+// import org.springframework.web.bind.annotation.RequestBody;
+// import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +22,7 @@ import com.vynyleshop.org.vynyleshop.model.Vynil;
 import com.vynyleshop.org.vynyleshop.service.VynilService;
 
 @RestController
-@CrossOrigin // Allow all origins for CORS
+@CrossOrigin(origins = "http://localhost:3000") // Allow access only to React app
 @RequestMapping("/api/vynil")
 public class VynilRestController {
   
@@ -48,27 +48,27 @@ public class VynilRestController {
   }
   
   // STORE
-  @PostMapping("/create")
-  public ResponseEntity<Vynil> store(@RequestBody Vynil vynil) {
-    return new ResponseEntity<Vynil>(vynilService.create(vynil), HttpStatus.OK); 
-  }
+  // @PostMapping("/create")
+  // public ResponseEntity<Vynil> store(@RequestBody Vynil vynil) {
+  //   return new ResponseEntity<Vynil>(vynilService.create(vynil), HttpStatus.OK); 
+  // }
   
   // UPDATE
-  @PutMapping("/edit/{id}")
-  public ResponseEntity<Vynil> update(@RequestBody Vynil vynil, @PathVariable Integer id) {
-    if(vynilService.findById(id).isEmpty())
-      return new ResponseEntity<Vynil>(HttpStatus.NOT_FOUND); 
+  // @PutMapping("/edit/{id}")
+  // public ResponseEntity<Vynil> update(@RequestBody Vynil vynil, @PathVariable Integer id) {
+  //   if(vynilService.findById(id).isEmpty())
+  //     return new ResponseEntity<Vynil>(HttpStatus.NOT_FOUND); 
     
-    vynil.setId(id); 
-    return new ResponseEntity<Vynil>(vynilService.update(vynil), HttpStatus.OK); 
-  }
+  //   vynil.setId(id); 
+  //   return new ResponseEntity<Vynil>(vynilService.update(vynil), HttpStatus.OK); 
+  // }
   
   // DELETE
-  @DeleteMapping("/delete/{id}")
-  public ResponseEntity<Vynil> delete(@PathVariable Integer id) {
-    vynilService.delete(id);
-    return new ResponseEntity<Vynil>(HttpStatus.OK);
-  }
+  // @DeleteMapping("/delete/{id}")
+  // public ResponseEntity<Vynil> delete(@PathVariable Integer id) {
+  //   vynilService.delete(id);
+  //   return new ResponseEntity<Vynil>(HttpStatus.OK);
+  // }
   
   // SEARCH
   @GetMapping("/search")
