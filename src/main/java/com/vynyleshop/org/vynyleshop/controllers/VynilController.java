@@ -38,7 +38,7 @@ public class VynilController {
   // SHOW
   @GetMapping("/{id}")
   public String show(@PathVariable Integer id, Model model) {
-    Vynil vynil = vynilService.findById(id);
+    Vynil vynil = vynilService.findById(id).get();
     model.addAttribute("vynil", vynil);
     return "vynil/show";
   }
@@ -69,7 +69,7 @@ public class VynilController {
   // EDIT
   @GetMapping("/edit/{id}")
   public String edit(@PathVariable Integer id, Model model) {
-    Vynil vynil = vynilService.findById(id);
+    Vynil vynil = vynilService.findById(id).get();
     model.addAttribute("vynil", vynil);
     model.addAttribute("isCreate", false);
     model.addAttribute("artistList", artistService.findAll());
