@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 // import org.springframework.web.bind.annotation.DeleteMapping;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000") // Allow access only to React app
+@CrossOrigin(origins = "http://localhost:5000") // Allow access only to React app
 @RequestMapping("/api/vynil")
 public class VynilRestController {
   
