@@ -1,6 +1,7 @@
 package com.vynyleshop.org.vynyleshop.model;
 
 import java.time.Year;
+import java.util.List;
 
 // Adaptation of the Vynil class to be used as a Data Transfer Object (DTO)
 // This class will be transferred to the frontend via REST API
@@ -11,7 +12,7 @@ public class VynilDTO {
     private String artistName;
     private Integer artistId;
     private Integer available;
-    private String tracklist;
+    private List<String> tracklist;
     private String genre;
     private String format;
     private String color;
@@ -28,7 +29,7 @@ public class VynilDTO {
         this.artistName = v.getArtist() != null ? v.getArtist().getName() : null;
         this.artistId = v.getArtist() != null ? v.getArtist().getId() : null;
         this.available = v.getAvailable();
-        this.tracklist = v.getTracklist();
+        this.tracklist = v.getTracklistAsList();
         this.genre = v.getGenre();
         this.format = v.getFormat();
         this.color = v.getColor();
@@ -40,6 +41,14 @@ public class VynilDTO {
     }
 
     // Getter e Setter
+
+    public List<String> getTracklist() {
+        return this.tracklist;
+    }
+
+    public void setTracklist(List<String> tracklist) {
+        this.tracklist = tracklist;
+    }
 
     public Integer getArtistId() {
         return this.artistId;
@@ -79,14 +88,6 @@ public class VynilDTO {
 
     public void setAvailable(Integer available) {
         this.available = available;
-    }
-
-    public String getTracklist() {
-        return tracklist;
-    }
-
-    public void setTracklist(String tracklist) {
-        this.tracklist = tracklist;
     }
 
     public String getGenre() {
