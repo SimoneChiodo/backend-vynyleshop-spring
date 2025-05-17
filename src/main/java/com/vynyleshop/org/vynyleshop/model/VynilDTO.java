@@ -9,6 +9,7 @@ public class VynilDTO {
     private Integer id;
     private String name;
     private String artistName;
+    private Integer artistId;
     private Integer available;
     private String tracklist;
     private String genre;
@@ -25,6 +26,7 @@ public class VynilDTO {
         this.id = v.getId();
         this.name = v.getName();
         this.artistName = v.getArtist() != null ? v.getArtist().getName() : null;
+        this.artistId = v.getArtist() != null ? v.getArtist().getId() : null;
         this.available = v.getAvailable();
         this.tracklist = v.getTracklist();
         this.genre = v.getGenre();
@@ -38,6 +40,14 @@ public class VynilDTO {
     }
 
     // Getter e Setter
+
+    public Integer getArtistId() {
+        return this.artistId;
+    }
+
+    public void setArtistId(Integer artistId) {
+        this.artistId = artistId;
+    }
 
     public Integer getId() {
         return id;
