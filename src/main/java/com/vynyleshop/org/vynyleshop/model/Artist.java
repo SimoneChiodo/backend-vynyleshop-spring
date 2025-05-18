@@ -25,11 +25,21 @@ public class Artist {
   @NotBlank(message = "Name cannot be blank")
   private String name;
 
+  private List<String> images;
+
   @OneToMany(mappedBy = "artist", cascade = { CascadeType.REMOVE })
   @JsonManagedReference
   private List<Vynil> vynils;
 
   // Getters and Setters
+
+  public List<String> getImages() {
+    return this.images;
+  }
+
+  public void setImages(List<String> images) {
+    this.images = images;
+  }
 
   public Integer getId() {
     return this.id;

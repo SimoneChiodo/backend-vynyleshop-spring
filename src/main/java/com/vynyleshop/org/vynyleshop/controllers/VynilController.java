@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.vynyleshop.org.vynyleshop.model.Vynil;
 import com.vynyleshop.org.vynyleshop.service.ArtistService;
+import com.vynyleshop.org.vynyleshop.service.ImageService;
 import com.vynyleshop.org.vynyleshop.service.VynilService;
 
 import jakarta.validation.Valid;
@@ -27,6 +28,8 @@ public class VynilController {
   private VynilService vynilService;
   @Autowired
   private ArtistService artistService;
+  @Autowired
+  private ImageService imageService;
 
   // GET
   @GetMapping()
@@ -39,7 +42,13 @@ public class VynilController {
   @GetMapping("/{id}")
   public String show(@PathVariable Integer id, Model model) {
     Vynil vynil = vynilService.findById(id).get();
+  
+    // Images List
+    List<String> images = imageService.getImagesFor("vynil", vynil.getName());
+
+    vynil.setImages(images);
     model.addAttribute("vynil", vynil);
+    
     return "vynil/show";
   }
 

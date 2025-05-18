@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.vynyleshop.org.vynyleshop.model.Artist;
 import com.vynyleshop.org.vynyleshop.service.ArtistService;
+import com.vynyleshop.org.vynyleshop.service.ImageService;
 
 import jakarta.validation.Valid;
 
@@ -24,6 +25,8 @@ public class ArtistController {
   
   @Autowired
   private ArtistService artistService;
+  @Autowired
+  private ImageService imageService;
 
   // GET
   @GetMapping()
@@ -36,6 +39,11 @@ public class ArtistController {
   @GetMapping("/{id}")
   public String show(@PathVariable Integer id, Model model) {
     Artist artist = artistService.findById(id).get();
+  
+    // Images List
+    List<String> images = imageService.getImagesFor("artist", artist.getName());
+    
+    artist.setImages(images);
     model.addAttribute("artist", artist);
     return "artist/show";
   }

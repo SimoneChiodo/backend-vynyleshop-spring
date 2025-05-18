@@ -13,6 +13,7 @@ public class VynilDTO {
     private Integer artistId;
     private Integer available;
     private List<String> tracklist;
+    private List<String> image;
     private String genre;
     private String format;
     private String color;
@@ -22,7 +23,7 @@ public class VynilDTO {
     private String label;
     private String country;
 
-    // Costruttore che riceve direttamente un oggetto Vynil
+    // Costructors
     public VynilDTO(Vynil v) {
         this.id = v.getId();
         this.name = v.getName();
@@ -30,6 +31,43 @@ public class VynilDTO {
         this.artistId = v.getArtist() != null ? v.getArtist().getId() : null;
         this.available = v.getAvailable();
         this.tracklist = v.getTracklistAsList();
+        this.image = v.getImages();
+        this.genre = v.getGenre();
+        this.format = v.getFormat();
+        this.color = v.getColor();
+        this.edition = v.getEdition();
+        this.code = v.getCode();
+        this.releaseYear = v.getReleaseYear();
+        this.label = v.getLabel();
+        this.country = v.getCountry();
+    }
+    
+    public VynilDTO(Vynil v, List<String> images) {
+        this.id = v.getId();
+        this.name = v.getName();
+        this.artistName = v.getArtist() != null ? v.getArtist().getName() : null;
+        this.artistId = v.getArtist() != null ? v.getArtist().getId() : null;
+        this.available = v.getAvailable();
+        this.tracklist = v.getTracklistAsList();
+        this.image = images;
+        this.genre = v.getGenre();
+        this.format = v.getFormat();
+        this.color = v.getColor();
+        this.edition = v.getEdition();
+        this.code = v.getCode();
+        this.releaseYear = v.getReleaseYear();
+        this.label = v.getLabel();
+        this.country = v.getCountry();
+    }
+    
+    public VynilDTO(VynilDTO v, List<String> images) {
+        this.id = v.getId();
+        this.name = v.getName();
+        this.artistName = v.getArtistName();
+        this.artistId = v.getArtistId();
+        this.available = v.getAvailable();
+        this.tracklist = v.getTracklist();
+        this.image = images;
         this.genre = v.getGenre();
         this.format = v.getFormat();
         this.color = v.getColor();
@@ -41,6 +79,14 @@ public class VynilDTO {
     }
 
     // Getter e Setter
+
+    public List<String> getImage() {
+        return this.image;
+    }
+
+    public void setImage(List<String> image) {
+        this.image = image;
+    }
 
     public List<String> getTracklist() {
         return this.tracklist;

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.vynyleshop.org.vynyleshop.model.Artist;
 import com.vynyleshop.org.vynyleshop.service.ArtistService;
+import com.vynyleshop.org.vynyleshop.service.ImageService;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5000") // Allow access only to React app
@@ -24,11 +25,19 @@ public class ArtistRestController {
   
   @Autowired
   private ArtistService artistService;
+  @Autowired
+  private ImageService imageService;
 
   // GET
   @GetMapping()
   public List<Artist> index(Model model) {
     List<Artist> artists = artistService.findAll();
+
+    for (Artist artist : artists) {
+      List<String> images = imageService.getImagesFor("artist", artist.getName());
+      artist.setImages(images);
+    }
+
     return artists;
   }
 
@@ -37,8 +46,14 @@ public class ArtistRestController {
   public ResponseEntity<Artist> show(@PathVariable Integer id) {
     Optional<Artist> result = artistService.findById(id);
     
-    if(result.isPresent())
-      return new ResponseEntity<Artist>(result.get(), HttpStatus.OK);
+    if(result.isPresent()) {
+      Artist artist = result.get();
+
+      List<String> images = imageService.getImagesFor("artist", artist.getName());
+
+      artist.setImages(images);
+      return new ResponseEntity<Artist>(artist, HttpStatus.OK);
+    }
       
     return new ResponseEntity<Artist>(HttpStatus.NOT_FOUND);
   }
@@ -47,6 +62,12 @@ public class ArtistRestController {
   @GetMapping("/search")
   public List<Artist> search(@RequestParam String name) {
     List<Artist> artists = artistService.searchByName(name);
+
+    for (Artist artist : artists) {
+      List<String> images = imageService.getImagesFor("artist", artist.getName());
+      artist.setImages(images);
+    }
+
     return artists;
   }
   

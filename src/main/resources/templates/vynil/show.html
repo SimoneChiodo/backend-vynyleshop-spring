@@ -115,12 +115,23 @@
           </div>
         </div>
 
-        <h3>Tracklist: 
-          <span class="fs-4 fw-normal d-block p-1" th:each="track, iterStat : *{tracklistAsList}">
-            <span>[[${iterStat.index + 1}]]- [[${track}]]</span>
-            "[[${track}]]" 
-          </span>
-        </h3>
+        
+        <div class="d-flex flex-column flex-md-row my-3">
+          <div class="left flex-grow-1">
+            <div class="row row-cols-2">
+              <img th:each="image : *{images}" th:src="${image}" alt="Vynil image" class="vynil-artist-images" />
+            </div>
+          </div>
+
+          <div class="right flex-grow-1">
+            <h3>Tracklist: 
+              <span class="fs-4 fw-normal d-block p-1" th:each="track, iterStat : *{tracklistAsList}">
+                <span>[[${iterStat.index + 1}]]- [[${track}]]</span>
+                "[[${track}]]" 
+              </span>
+            </h3>
+          </div>
+        </div>
       </div>
     </main>
   </body>

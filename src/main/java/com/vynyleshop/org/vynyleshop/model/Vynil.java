@@ -22,7 +22,7 @@ import jakarta.validation.constraints.NotNull;
 @Entity
 @Table(name = "vynil")
 public class Vynil {
-  
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
@@ -34,6 +34,8 @@ public class Vynil {
   @JoinColumn(name = "artist_id", referencedColumnName = "id")
   @JsonBackReference
   private Artist artist;
+
+  private List<String> images;
 
   @NotNull(message = "Available cannot be null")
   private Integer available;
@@ -67,6 +69,14 @@ public class Vynil {
   private String country;
   
   // Getters and Setters
+
+  public List<String> getImages() {
+    return this.images;
+  }
+
+  public void setImages(List<String> images) {
+    this.images = images;
+  }
 
   public Integer getId() {
     return this.id;
