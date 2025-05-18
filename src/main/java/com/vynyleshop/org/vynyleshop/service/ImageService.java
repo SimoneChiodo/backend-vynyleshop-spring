@@ -15,8 +15,10 @@ public class ImageService {
   // Update image URL
   public List<String> getImagesFor(String type, String name) {
     List<String> imagePaths = new ArrayList<>();
-    Path targetDir = basePath.resolve(Paths.get(type, name));
+    String webName = name.trim().toLowerCase().replaceAll(" ", "_");
+    Path targetDir = basePath.resolve(Paths.get(type, webName));
 
+    System.out.println("CIAO: " + targetDir);
     // If directory exists
     if (Files.exists(targetDir) && Files.isDirectory(targetDir)) {
       // Try to read all files inside directory
@@ -25,7 +27,6 @@ public class ImageService {
           // If element is not a directory && is a valid file
           if (!Files.isDirectory(entry) && isImageFile(entry)) {
             // Add to List an accessible path
-            String webName = name.trim().toLowerCase().replaceAll(" ", "_");
             String relativePath = "/img/" + type + "/" + webName + "/" + entry.getFileName();
             imagePaths.add(relativePath);
           }
