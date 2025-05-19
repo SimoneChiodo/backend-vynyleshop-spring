@@ -12,7 +12,8 @@ public class VynilDTO {
     private String artistName;
     private Integer artistId;
     private Integer available;
-    private List<String> tracklist;
+    private List<String> sideone;
+    private List<String> sidetwo;
     private List<String> images;
     private String genre;
     private String format;
@@ -30,7 +31,8 @@ public class VynilDTO {
         this.artistName = v.getArtist() != null ? v.getArtist().getName() : null;
         this.artistId = v.getArtist() != null ? v.getArtist().getId() : null;
         this.available = v.getAvailable();
-        this.tracklist = v.getTracklistAsList();
+        this.sideone = v.getSideoneAsList();
+        this.sidetwo = v.getSidetwoAsList();
         this.images = v.getImages();
         this.genre = v.getGenre();
         this.format = v.getFormat();
@@ -48,7 +50,8 @@ public class VynilDTO {
         this.artistName = v.getArtist() != null ? v.getArtist().getName() : null;
         this.artistId = v.getArtist() != null ? v.getArtist().getId() : null;
         this.available = v.getAvailable();
-        this.tracklist = v.getTracklistAsList();
+        this.sideone = v.getSideoneAsList();
+        this.sidetwo = v.getSidetwoAsList();
         this.images = images;
         this.genre = v.getGenre();
         this.format = v.getFormat();
@@ -66,7 +69,8 @@ public class VynilDTO {
         this.artistName = v.getArtistName();
         this.artistId = v.getArtistId();
         this.available = v.getAvailable();
-        this.tracklist = v.getTracklist();
+        this.sideone = v.getSideone();
+        this.sidetwo = v.getSidetwo();
         this.images = images;
         this.genre = v.getGenre();
         this.format = v.getFormat();
@@ -80,20 +84,28 @@ public class VynilDTO {
 
     // Getter e Setter
 
+    public List<String> getSideone() {
+        return this.sideone;
+    }
+
+    public void setSideone(List<String> sideone) {
+        this.sideone = sideone;
+    }
+
+    public List<String> getSidetwo() {
+        return this.sidetwo;
+    }
+
+    public void setSidetwo(List<String> sidetwo) {
+        this.sidetwo = sidetwo;
+    }
+
     public List<String> getImages() {
         return this.images;
     }
 
     public void setImages(List<String> images) {
         this.images = images;
-    }
-
-    public List<String> getTracklist() {
-        return this.tracklist;
-    }
-
-    public void setTracklist(List<String> tracklist) {
-        this.tracklist = tracklist;
     }
 
     public Integer getArtistId() {

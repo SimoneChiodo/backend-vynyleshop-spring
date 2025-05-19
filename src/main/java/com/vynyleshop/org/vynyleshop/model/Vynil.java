@@ -40,9 +40,13 @@ public class Vynil {
   @NotNull(message = "Available cannot be null")
   private Integer available;
 
-  @NotBlank(message = "Tracklist cannot be blank")
-  @Length(max = 500, message = "Tracklist cannot exceed 500 characters")
-  private String tracklist;
+  @NotBlank(message = "Sideone cannot be blank")
+  @Length(max = 500, message = "Sideone cannot exceed 500 characters")
+  private String sideone;
+  
+  @NotBlank(message = "Sidetwo cannot be blank")
+  @Length(max = 500, message = "Sidetwo cannot exceed 500 characters")
+  private String sidetwo;
   
   @NotBlank(message = "Genre cannot be blank")
   private String genre; 
@@ -69,6 +73,22 @@ public class Vynil {
   private String country;
   
   // Getters and Setters
+
+  public String getSideone() {
+    return this.sideone;
+  }
+
+  public void setSideone(String sideone) {
+    this.sideone = sideone;
+  }
+
+  public String getSidetwo() {
+    return this.sidetwo;
+  }
+
+  public void setSidetwo(String sidetwo) {
+    this.sidetwo = sidetwo;
+  }
 
   public List<String> getImages() {
     return this.images;
@@ -108,14 +128,6 @@ public class Vynil {
 
   public void setAvailable(Integer available) {
     this.available = available;
-  }
-
-  public String getTracklist() {
-    return this.tracklist;
-  }
-
-  public void setTracklist(String tracklist) {
-    this.tracklist = tracklist;
   }
 
   public String getGenre() {
@@ -184,18 +196,30 @@ public class Vynil {
 
   // Methods to convert tracklist to/from List<String>
   // Assuming tracklist is a JSON array string like: ["Track 1", "Track 2", "Track 3"]
-  public List<String> getTracklistAsList() {
+  public List<String> getSideoneAsList() {
     try {
         ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(this.tracklist, new TypeReference<List<String>>() {});
+        return objectMapper.readValue(this.sideone, new TypeReference<List<String>>() {});
     } catch (Exception e) {
         return List.of(); // Return an empty list in case of error
     }
-}
+  }
+  public List<String> getSidetwoAsList() {
+    try {
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readValue(this.sidetwo, new TypeReference<List<String>>() {});
+    } catch (Exception e) {
+        return List.of(); // Return an empty list in case of error
+    }
+  }
 
-  public void setTracklistFromList(List<String> tracks) throws Exception {
+  public void setSideoneFromList(List<String> tracks) throws Exception {
       ObjectMapper objectMapper = new ObjectMapper();
-      this.tracklist = objectMapper.writeValueAsString(tracks);
+      this.sideone = objectMapper.writeValueAsString(tracks);
+  }
+  public void setSidetwoFromList(List<String> tracks) throws Exception {
+      ObjectMapper objectMapper = new ObjectMapper();
+      this.sidetwo= objectMapper.writeValueAsString(tracks);
   }
 
 }
