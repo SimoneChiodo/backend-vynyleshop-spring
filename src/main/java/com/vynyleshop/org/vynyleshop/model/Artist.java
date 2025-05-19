@@ -3,6 +3,8 @@ package com.vynyleshop.org.vynyleshop.model;
 
 import java.util.List;
 
+import org.hibernate.validator.constraints.Length;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
@@ -27,11 +29,23 @@ public class Artist {
 
   private List<String> images;
 
+  @NotBlank(message = "Bio cannot be blank")
+  @Length(max = 500, message = "Bio cannot exceed 500 characters")
+  private String bio;
+
   @OneToMany(mappedBy = "artist", cascade = { CascadeType.REMOVE })
   @JsonManagedReference
   private List<Vynil> vynils;
 
   // Getters and Setters
+
+  public String getBio() {
+    return this.bio;
+  }
+
+  public void setBio(String bio) {
+    this.bio = bio;
+  }
 
   public List<String> getImages() {
     return this.images;
