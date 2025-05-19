@@ -19,6 +19,7 @@ public class SecurityConfiguration {
     .requestMatchers("vynil/create", "vynil/edit/**", "vynil/delete/**").hasAuthority("ADMIN")
     .requestMatchers("artist/create", "artist/edit/**", "artist/delete/**").hasAuthority("ADMIN")
     .requestMatchers("/api/**").permitAll()
+    .requestMatchers("/img/**").permitAll()
     .requestMatchers("/**").hasAnyAuthority("USER", "ADMIN")
     )
     .formLogin(withDefaults -> {})
