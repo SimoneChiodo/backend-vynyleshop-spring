@@ -13,7 +13,7 @@ public class VynilDTO {
     private Integer artistId;
     private Integer available;
     private List<String> tracklist;
-    private List<String> image;
+    private List<String> images;
     private String genre;
     private String format;
     private String color;
@@ -31,7 +31,7 @@ public class VynilDTO {
         this.artistId = v.getArtist() != null ? v.getArtist().getId() : null;
         this.available = v.getAvailable();
         this.tracklist = v.getTracklistAsList();
-        this.image = v.getImages();
+        this.images = v.getImages();
         this.genre = v.getGenre();
         this.format = v.getFormat();
         this.color = v.getColor();
@@ -49,7 +49,7 @@ public class VynilDTO {
         this.artistId = v.getArtist() != null ? v.getArtist().getId() : null;
         this.available = v.getAvailable();
         this.tracklist = v.getTracklistAsList();
-        this.image = images;
+        this.images = images;
         this.genre = v.getGenre();
         this.format = v.getFormat();
         this.color = v.getColor();
@@ -67,7 +67,7 @@ public class VynilDTO {
         this.artistId = v.getArtistId();
         this.available = v.getAvailable();
         this.tracklist = v.getTracklist();
-        this.image = images;
+        this.images = images;
         this.genre = v.getGenre();
         this.format = v.getFormat();
         this.color = v.getColor();
@@ -80,12 +80,12 @@ public class VynilDTO {
 
     // Getter e Setter
 
-    public List<String> getImage() {
-        return this.image;
+    public List<String> getImages() {
+        return this.images;
     }
 
-    public void setImage(List<String> image) {
-        this.image = image;
+    public void setImages(List<String> images) {
+        this.images = images;
     }
 
     public List<String> getTracklist() {

@@ -1,6 +1,7 @@
 package com.vynyleshop.org.vynyleshop.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.IOException;
 import java.nio.file.*;
@@ -18,7 +19,6 @@ public class ImageService {
     String webName = name.trim().toLowerCase().replaceAll(" ", "_");
     Path targetDir = basePath.resolve(Paths.get(type, webName));
 
-    System.out.println("CIAO: " + targetDir);
     // If directory exists
     if (Files.exists(targetDir) && Files.isDirectory(targetDir)) {
       // Try to read all files inside directory
@@ -27,7 +27,10 @@ public class ImageService {
           // If element is not a directory && is a valid file
           if (!Files.isDirectory(entry) && isImageFile(entry)) {
             // Add to List an accessible path
-            String relativePath = "/img/" + type + "/" + webName + "/" + entry.getFileName();
+            // String relativePath = "/img/" + type + "/" + webName + "/" + entry.getFileName();
+            String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().toUriString();
+            String relativePath = baseUrl + "/img/" + type + "/" + webName + "/" + entry.getFileName();
+
             imagePaths.add(relativePath);
           }
         }
