@@ -44,6 +44,17 @@
             </div>
           </div>
 
+          <!-- BIO -->
+          <div class="col-md-12">
+            <label for="inputBio" class="form-label">Biography</label>
+            <textarea id="inputBio" class="form-control" rows="3" th:field="*{bio}" th:errorClass="is-invalid"></textarea>
+            <div class="invalid-feedback">
+              <ul>
+                <li th:each="error : ${#fields.errors('bio')}" th:text="${error}"></li>
+              </ul>
+            </div>
+          </div>
+
           <!-- SUBMIT -->
           <div class="col-12 text-center mt-4">
             <button class="btn btn-primary btn-lg" type="submit" th:text="${isCreate} ? 'Create Artist' : 'Update Artist'"></button>

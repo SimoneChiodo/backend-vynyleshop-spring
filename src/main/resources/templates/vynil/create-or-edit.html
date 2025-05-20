@@ -73,13 +73,24 @@
             </div>
           </div>
 
-          <!-- TRACKLIST (TEXTAREA) -->
-          <div class="col-md-12">
-            <label for="inputTracklist" class="form-label">Tracklist</label>
-            <textarea id="inputTracklist" class="form-control" rows="2" th:field="*{tracklist}" th:errorClass="is-invalid"></textarea>
+          <!-- SIDEONE -->
+          <div class="col-md-6">
+            <label for="inputSideone" class="form-label">Sideone <i>(Example: ["Song 1 (mm:ss)", "Song 2 (mm:ss)"])</i></label>
+            <textarea id="inputSideone" class="form-control" rows="2" th:field="*{sideone}" th:errorClass="is-invalid"></textarea>
             <div class="invalid-feedback">
               <ul>
-                <li th:each="error : ${#fields.errors('tracklist')}" th:text="${error}"></li>
+                <li th:each="error : ${#fields.errors('sideone')}" th:text="${error}"></li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- SIDETWO -->
+          <div class="col-md-6">
+            <label for="inputSidetwo" class="form-label">Sidetwo <i>(Example: ["Song 1 (mm:ss)", "Song 2 (mm:ss)"])</i></label>
+            <textarea id="inputSidetwo" class="form-control" rows="2" th:field="*{sidetwo}" th:errorClass="is-invalid"></textarea>
+            <div class="invalid-feedback">
+              <ul>
+                <li th:each="error : ${#fields.errors('sidetwo')}" th:text="${error}"></li>
               </ul>
             </div>
           </div>
