@@ -94,25 +94,36 @@
         <h1 class="font-size-3 text-center">Artist Detail</h1>
 
         <!-- Data -->
-        <h1>
+        <h2>
           Name: <span class="fw-normal">[[*{name}]]</span>
-        </h1>
+        </h2>
         <div class="d-flex flex-column flex-md-row justify-content-between my-3">
-          <h2>ID: <span class="fw-normal">[[*{id}]]</span></h2>
-          <h2>Numbers of vynil: <span class="fw-normal">[[*{getNumberOfVynils()}]]</span></h2>
-        </div>
-        <h2>Vynils titles:</h2>
-        <div class="d-flex flex-row justify-content-center justify-content-md-between align-items-center" 
-          th:each="vynil, iterStat : *{getVynils()}" th:object="${vynil}">
-          <h3 class="fw-normal">[[${iterStat.index + 1}]]- [[*{getName()}]]</h3>
-
-          <a class="btn btn-primary m-1" th:href=@{/vynil/{id}(id=*{id})}>
-            <i class="fa-solid fa-eye"></i
-          ></a>
+          <h3>ID: <span class="fw-normal">[[*{id}]]</span></h3>
+          <h3>Numbers of vynil: <span class="fw-normal">[[*{getNumberOfVynils()}]]</span></h3>
         </div>
 
-        <div class="row row-cols-2">
-          <img th:each="image : *{images}" th:src="${image}" alt="Artist image" class="vynil-artist-images" />
+        <h3 class="mt-3">Biography: </h3>
+        <p class="fs-5">[[*{bio}]]</p>
+        
+        <div class="row row-cols-1 row-cols-lg-2 my-3">
+          <div class="col left my-4 my-lg-0">
+            <h3>Vynils titles:</h2>
+            <div class="d-flex flex-row justify-content-center justify-content-md-between align-items-center" 
+            th:each="vynil, iterStat : *{getVynils()}" th:object="${vynil}">
+              <h4 class="fw-normal">[[${iterStat.index + 1}]]- [[*{getName()}]]</h4>
+
+              <a class="btn btn-primary m-1" th:href=@{/vynil/{id}(id=*{id})}>
+                <i class="fa-solid fa-eye"></i
+              ></a>
+            </div>
+          </div>
+
+          <div class="col right">
+            <h3>Images: </h3>
+            <div class="row-cols-2 g-2 justify-content-center justify-content-lg-start">
+              <img th:each="image : *{images}" th:src="${image}" alt="Artist image" class="vynil-artist-images" />
+            </div>
+          </div>
         </div>
       </div>
     </main>

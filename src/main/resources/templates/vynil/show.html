@@ -16,7 +16,7 @@
 
     <!-- MAIN -->
     <main class="mb-5">
-      <div class="container text-center text-md-start" th:object="${vynil}">
+      <div class="container text-center text-lg-start" th:object="${vynil}">
         <!-- Buttons -->
         <div class="w-100 d-flex justify-content-between mb-3">
           <!-- Back Button -->
@@ -25,7 +25,7 @@
               class="btn btn-primary btn-lg"
               th:href="@{/vynil}"> 
               <i class="fa-solid fa-chevron-left fa-lg"></i>
-              <span class="d-none d-md-inline">Back to Vynil List</span>
+              <span class="d-none d-lg-inline">Back to Vynil List</span>
             </a>
           </div>
 
@@ -98,15 +98,15 @@
           "[[*{name}]]" <span class="fs-2 fw-bold">by</span> 
           "<a th:href="@{/artist/{id}(id=*{artist.getId()})}">[[*{artist.getName()}]]</a>"
         </h1> 
-        <div class="d-flex flex-column flex-md-row my-3">
-          <div class="left flex-grow-1">
+        <div class="row row-cols-1 row-cols-lg-2 my-3">
+          <div class="col left">
             <h3>ID: <span class="fw-normal">[[*{id}]]</span></h3>
             <h3>Genre: <span class="fw-normal">[[*{genre}]]</span></h3>
             <h3>Release year: <span class="fw-normal">[[*{releaseYear}]]</span></h3>
             <h3>Available: <span class="fw-normal">[[*{available}]]</span></h3>
             <h3>Format: <span class="fw-normal">[[*{format}]]</span></h3>
           </div>
-          <div class="right flex-grow-1">
+          <div class="col right">
             <h3>Code: <span class="fw-normal">[[*{code}]]</span></h3>
             <h3>Edition: <span class="fw-normal">[[*{edition}]]</span></h3>
             <h3>Label: <span class="fw-normal">[[*{label}]]</span></h3>
@@ -116,20 +116,30 @@
         </div>
 
         
-        <div class="d-flex flex-column flex-md-row my-3">
-          <div class="left flex-grow-1">
-            <div class="row row-cols-2">
-              <img th:each="image : *{images}" th:src="${image}" alt="Vynil image" class="vynil-artist-images" />
+        <div class="row row-cols-1 row-cols-lg-2 my-3">
+          <div class="col left">
+            <h3>Tracklist: </h3>
+            <div class="d-flex flex-row">
+              <div class="left w-50">
+                <h3>Sideone: </h3>
+                <span class="fs-4 fw-normal d-block p-1" th:each="track, iterStat : *{sideoneAsList}">
+                <span>[[${iterStat.index + 1}]]- [[${track}]]</span>
+                </span>
+              </div>
+              <div class="right w-50">
+                <h3>Sidetwo: </h3>
+                <span class="fs-4 fw-normal d-block p-1" th:each="track, iterStat : *{sidetwoAsList}">
+                <span>[[${iterStat.index + 1}]]- [[${track}]]</span>
+              </span>
+              </div>
             </div>
           </div>
 
-          <div class="right flex-grow-1">
-            <h3>Tracklist: 
-              <span class="fs-4 fw-normal d-block p-1" th:each="track, iterStat : *{tracklistAsList}">
-                <span>[[${iterStat.index + 1}]]- [[${track}]]</span>
-                "[[${track}]]" 
-              </span>
-            </h3>
+          <div class="col right">
+            <h3 class="mb-2">Images: </h3>
+            <div class="row row-cols-2 g-2 justify-content-center justify-content-lg-start">
+              <img th:each="image : *{images}" th:src="${image}" alt="Vynil image" class="vynil-artist-images" />
+            </div>
           </div>
         </div>
       </div>
