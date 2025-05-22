@@ -85,14 +85,4 @@ public class Artist {
     return this.vynils.size();
   }
 
-  public List<String> getVynilsAsList() {
-    // In case there are no vynil, return an empty list
-    if (vynils == null) return List.of();
-
-    // Map the vynils and add their name to this.vynils
-    return vynils.stream()
-        .map(Vynil::getName)
-        .toList();
-  }
-
 }

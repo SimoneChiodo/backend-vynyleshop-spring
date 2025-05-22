@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.vynyleshop.org.vynyleshop.model.Artist;
 import com.vynyleshop.org.vynyleshop.model.ArtistDTO;
+import com.vynyleshop.org.vynyleshop.model.VynilDTO;
 import com.vynyleshop.org.vynyleshop.service.ArtistService;
 import com.vynyleshop.org.vynyleshop.service.ImageService;
 
@@ -34,13 +35,23 @@ public class ArtistRestController {
   public List<ArtistDTO> index(Model model) {
     List<Artist> artists = artistService.findAll();
 
-    // NOTE: .map(ArtistDTO::new) aplly the constructor of the DTO to each Artist object
+    // NOTE: I'm using the constructor of the DTO to change each Vynil object
     return artists.stream()
-        .map(artist -> {
-            List<String> images = imageService.getImagesFor("artist", artist.getName());
-            return new ArtistDTO(artist, images);
-        })
-        .toList();
+      .map(artist -> {
+          List<String> artistImages = imageService.getImagesFor("artist", artist.getName());
+
+          List<VynilDTO> vynilDTOs = artist.getVynils() != null
+              ? artist.getVynils().stream()
+                  .map(v -> {
+                      List<String> vinylImages = imageService.getImagesFor("vynil", v.getName());
+                      return new VynilDTO(v, vinylImages);
+                  })
+                  .toList()
+              : List.of();
+
+          return new ArtistDTO(artist, artistImages, vynilDTOs);
+      })
+      .toList();
   }
 
   // SHOW
@@ -48,12 +59,23 @@ public class ArtistRestController {
   public ResponseEntity<ArtistDTO> show(@PathVariable Integer id) {
     Optional<Artist> result = artistService.findById(id);
     
+    // NOTE: I'm using the constructor of the DTO to change each Vynil object
     if (result.isPresent()) {
-        Artist artist = result.get();
-        List<String> images = imageService.getImagesFor("artist", artist.getName());
-        ArtistDTO dto = new ArtistDTO(artist, images);
-        return new ResponseEntity<ArtistDTO>(dto, HttpStatus.OK);
-    }
+      Artist artist = result.get();
+      List<String> artistImages = imageService.getImagesFor("artist", artist.getName());
+
+      List<VynilDTO> vynilDTOs = artist.getVynils() != null
+          ? artist.getVynils().stream()
+              .map(v -> {
+                  List<String> vinylImages = imageService.getImagesFor("vynil", v.getName());
+                  return new VynilDTO(v, vinylImages);
+              })
+              .toList()
+          : List.of();
+
+      ArtistDTO dto = new ArtistDTO(artist, artistImages, vynilDTOs);
+      return new ResponseEntity<ArtistDTO>(dto, HttpStatus.OK);
+  }
       
     return new ResponseEntity<ArtistDTO>(HttpStatus.NOT_FOUND);
   }
@@ -63,13 +85,23 @@ public class ArtistRestController {
   public List<ArtistDTO> search(@RequestParam String name) {
     List<Artist> artists = artistService.searchByName(name);
 
-    // NOTE: .map(ArtistDTO::new) aplly the constructor of the DTO to each Artist object
+    // NOTE: I'm using the constructor of the DTO to change each Vynil object
     return artists.stream()
-        .map(artist -> {
-            List<String> images = imageService.getImagesFor("artist", artist.getName());
-            return new ArtistDTO(artist, images);
-        })
-        .toList();
+      .map(artist -> {
+          List<String> artistImages = imageService.getImagesFor("artist", artist.getName());
+
+          List<VynilDTO> vynilDTOs = artist.getVynils() != null
+              ? artist.getVynils().stream()
+                  .map(v -> {
+                      List<String> vinylImages = imageService.getImagesFor("vynil", v.getName());
+                      return new VynilDTO(v, vinylImages);
+                  })
+                  .toList()
+              : List.of();
+
+          return new ArtistDTO(artist, artistImages, vynilDTOs);
+      })
+      .toList();
   }
   
 }

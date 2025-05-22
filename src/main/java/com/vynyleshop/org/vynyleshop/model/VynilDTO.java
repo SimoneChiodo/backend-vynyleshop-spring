@@ -26,25 +26,6 @@ public class VynilDTO {
 
     // Costructors
     
-    public VynilDTO(Vynil v) {
-        this.id = v.getId();
-        this.name = v.getName();
-        this.artistName = v.getArtist() != null ? v.getArtist().getName() : null;
-        this.artistId = v.getArtist() != null ? v.getArtist().getId() : null;
-        this.available = v.getAvailable();
-        this.sideone = v.getSideoneAsList();
-        this.sidetwo = v.getSidetwoAsList();
-        this.images = v.getImages();
-        this.genre = v.getGenre();
-        this.format = v.getFormat();
-        this.color = v.getColor();
-        this.edition = v.getEdition();
-        this.code = v.getCode();
-        this.releaseYear = v.getReleaseYear();
-        this.label = v.getLabel();
-        this.country = v.getCountry();
-    }
-    
     public VynilDTO(Vynil v, List<String> images) {
         this.id = v.getId();
         this.name = v.getName();
@@ -53,25 +34,6 @@ public class VynilDTO {
         this.available = v.getAvailable();
         this.sideone = v.getSideoneAsList();
         this.sidetwo = v.getSidetwoAsList();
-        this.images = images;
-        this.genre = v.getGenre();
-        this.format = v.getFormat();
-        this.color = v.getColor();
-        this.edition = v.getEdition();
-        this.code = v.getCode();
-        this.releaseYear = v.getReleaseYear();
-        this.label = v.getLabel();
-        this.country = v.getCountry();
-    }
-    
-    public VynilDTO(VynilDTO v, List<String> images) {
-        this.id = v.getId();
-        this.name = v.getName();
-        this.artistName = v.getArtistName();
-        this.artistId = v.getArtistId();
-        this.available = v.getAvailable();
-        this.sideone = v.getSideone();
-        this.sidetwo = v.getSidetwo();
         this.images = images;
         this.genre = v.getGenre();
         this.format = v.getFormat();

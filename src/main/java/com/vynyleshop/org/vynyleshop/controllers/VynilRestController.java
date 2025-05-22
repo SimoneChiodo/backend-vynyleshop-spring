@@ -33,7 +33,7 @@ public class VynilRestController {
   public List<VynilDTO> index() {
     List<Vynil> vynils = vynilService.findAll();
 
-    // NOTE: .map(VynilDTO::new) aplly the constructor of the DTO to each Vynil object
+    // NOTE: I'm using the constructor of the DTO to change each Vynil object
     return vynils.stream()
         .map(vynil -> {
             List<String> images = imageService.getImagesFor("vynil", vynil.getName());
@@ -47,6 +47,7 @@ public class VynilRestController {
   public ResponseEntity<VynilDTO> get(@PathVariable Integer id) {
     Optional<Vynil> result = vynilService.findById(id);
 
+    // NOTE: I'm using the constructor of the DTO to change each Vynil object
     if (result.isPresent()) {
         Vynil vynil = result.get();
         List<String> images = imageService.getImagesFor("vynil", vynil.getName());
@@ -62,7 +63,7 @@ public class VynilRestController {
   public List<VynilDTO> search(@RequestParam String name) {
     List<Vynil> vynils = vynilService.searchByName(name);
 
-    // NOTE: .map(VynilDTO::new) aplly the constructor of the DTO to each Vynil object
+    // NOTE: I'm using the constructor of the DTO to change each Vynil object
     return vynils.stream()
         .map(vynil -> {
             List<String> images = imageService.getImagesFor("vynil", vynil.getName());
