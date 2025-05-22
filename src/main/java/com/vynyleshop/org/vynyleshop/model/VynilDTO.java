@@ -25,6 +25,7 @@ public class VynilDTO {
     private String country;
 
     // Costructors
+    
     public VynilDTO(Vynil v) {
         this.id = v.getId();
         this.name = v.getName();

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vynyleshop.org.vynyleshop.model.Artist;
+import com.vynyleshop.org.vynyleshop.model.ArtistDTO;
 import com.vynyleshop.org.vynyleshop.service.ArtistService;
 import com.vynyleshop.org.vynyleshop.service.ImageService;
 
@@ -30,45 +31,45 @@ public class ArtistRestController {
 
   // GET
   @GetMapping()
-  public List<Artist> index(Model model) {
+  public List<ArtistDTO> index(Model model) {
     List<Artist> artists = artistService.findAll();
 
-    for (Artist artist : artists) {
-      List<String> images = imageService.getImagesFor("artist", artist.getName());
-      artist.setImages(images);
-    }
-
-    return artists;
+    // NOTE: .map(ArtistDTO::new) aplly the constructor of the DTO to each Artist object
+    return artists.stream()
+        .map(artist -> {
+            List<String> images = imageService.getImagesFor("artist", artist.getName());
+            return new ArtistDTO(artist, images);
+        })
+        .toList();
   }
 
   // SHOW
   @GetMapping("/{id}")
-  public ResponseEntity<Artist> show(@PathVariable Integer id) {
+  public ResponseEntity<ArtistDTO> show(@PathVariable Integer id) {
     Optional<Artist> result = artistService.findById(id);
     
-    if(result.isPresent()) {
-      Artist artist = result.get();
-
-      List<String> images = imageService.getImagesFor("artist", artist.getName());
-
-      artist.setImages(images);
-      return new ResponseEntity<Artist>(artist, HttpStatus.OK);
+    if (result.isPresent()) {
+        Artist artist = result.get();
+        List<String> images = imageService.getImagesFor("artist", artist.getName());
+        ArtistDTO dto = new ArtistDTO(artist, images);
+        return new ResponseEntity<ArtistDTO>(dto, HttpStatus.OK);
     }
       
-    return new ResponseEntity<Artist>(HttpStatus.NOT_FOUND);
+    return new ResponseEntity<ArtistDTO>(HttpStatus.NOT_FOUND);
   }
 
   // SEARCH
   @GetMapping("/search")
-  public List<Artist> search(@RequestParam String name) {
+  public List<ArtistDTO> search(@RequestParam String name) {
     List<Artist> artists = artistService.searchByName(name);
 
-    for (Artist artist : artists) {
-      List<String> images = imageService.getImagesFor("artist", artist.getName());
-      artist.setImages(images);
-    }
-
-    return artists;
+    // NOTE: .map(ArtistDTO::new) aplly the constructor of the DTO to each Artist object
+    return artists.stream()
+        .map(artist -> {
+            List<String> images = imageService.getImagesFor("artist", artist.getName());
+            return new ArtistDTO(artist, images);
+        })
+        .toList();
   }
   
 }

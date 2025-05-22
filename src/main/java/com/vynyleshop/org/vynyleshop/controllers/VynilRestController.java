@@ -51,10 +51,10 @@ public class VynilRestController {
         Vynil vynil = result.get();
         List<String> images = imageService.getImagesFor("vynil", vynil.getName());
         VynilDTO dto = new VynilDTO(vynil, images);
-        return new ResponseEntity<>(dto, HttpStatus.OK);
+        return new ResponseEntity<VynilDTO>(dto, HttpStatus.OK);
     }
 
-    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    return new ResponseEntity<VynilDTO>(HttpStatus.NOT_FOUND);
   }
   
   // SEARCH - VynilDTO
