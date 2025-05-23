@@ -82,7 +82,7 @@ public class ArtistRestController {
 
   // SEARCH
   @GetMapping("/search")
-  public List<ArtistDTO> search(@RequestParam String name) {
+  public List<ArtistDTO> search(@RequestParam(required = false) String name) {
     List<Artist> artists = artistService.searchByName(name);
 
     // NOTE: I'm using the constructor of the DTO to change each Vynil object

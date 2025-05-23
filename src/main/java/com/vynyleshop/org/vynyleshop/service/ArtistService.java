@@ -42,6 +42,11 @@ public class ArtistService {
 
   //SEARCH
   public List<Artist> searchByName(String name) {
+    // If name is empty
+    if (name == null || name.isBlank()) 
+      return artistRepository.findAll(); 
+    
+    // Search by name
     return artistRepository.findByNameContainingIgnoreCase(name);
   }
 }
