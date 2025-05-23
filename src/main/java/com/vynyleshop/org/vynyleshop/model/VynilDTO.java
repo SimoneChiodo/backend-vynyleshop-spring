@@ -19,7 +19,6 @@ public class VynilDTO {
     private String format;
     private String color;
     private String edition;
-    private String code;
     private Year releaseYear;
     private String label;
     private String country;
@@ -39,7 +38,6 @@ public class VynilDTO {
         this.format = v.getFormat();
         this.color = v.getColor();
         this.edition = v.getEdition();
-        this.code = v.getCode();
         this.releaseYear = v.getReleaseYear();
         this.label = v.getLabel();
         this.country = v.getCountry();
@@ -141,14 +139,6 @@ public class VynilDTO {
 
     public void setEdition(String edition) {
         this.edition = edition;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
     }
 
     public Year getReleaseYear() {

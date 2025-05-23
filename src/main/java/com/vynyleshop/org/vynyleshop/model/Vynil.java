@@ -60,9 +60,6 @@ public class Vynil {
   @NotBlank(message = "Edition cannot be blank")
   private String edition;
   
-  @NotBlank(message = "Code cannot be blank")
-  private String code;
-  
   @NotNull(message = "ReleaseYear cannot be null")
   private Year releaseYear;
   
@@ -160,14 +157,6 @@ public class Vynil {
 
   public void setEdition(String edition) {
     this.edition = edition;
-  }
-
-  public String getCode() {
-    return this.code;
-  }
-
-  public void setCode(String code) {
-    this.code = code;
   }
 
   public Year getReleaseYear() {
