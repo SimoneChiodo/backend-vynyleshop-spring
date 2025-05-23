@@ -42,6 +42,25 @@ public class VynilRestController {
         .toList();
   }
 
+  // FILTERED GET - VynilDTO
+  @GetMapping("/filter")
+  public List<VynilDTO> filter(
+    @RequestParam(required = false) String name,
+    @RequestParam(required = false) String artist,
+    @RequestParam(required = false) Integer releaseYear,
+    @RequestParam(required = false) Boolean available,
+    @RequestParam(required = false) String format
+  ) {
+    List<Vynil> vynils = vynilService.filter(name, artist, releaseYear, available, format);
+
+    return vynils.stream()
+        .map(vynil -> {
+            List<String> images = imageService.getImagesFor("vynil", vynil.getName());
+            return new VynilDTO(vynil, images);
+        })
+        .toList();
+  }
+
   // SHOW - VynilDTO
   @GetMapping("/{id}")
   public ResponseEntity<VynilDTO> get(@PathVariable Integer id) {

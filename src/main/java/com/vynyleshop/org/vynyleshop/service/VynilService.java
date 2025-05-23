@@ -45,4 +45,15 @@ public class VynilService {
     return vynilRepository.findByNameContainingIgnoreCase(name);
   }
 
+  //FILTERED INDEX
+  public List<Vynil> filter(String name, String artist, Integer releaseYear, Boolean available, String format) {
+    return vynilRepository.findAll().stream()
+        .filter(v -> name == null || v.getName().toLowerCase().contains(name.toLowerCase()))
+        .filter(v -> artist == null || v.getArtist().getName().toLowerCase().contains(artist.toLowerCase()))
+        .filter(v -> releaseYear == null || v.getReleaseYear().getValue() == releaseYear.intValue())
+        .filter(v -> available == null || (available ? v.getAvailable() > 0 : v.getAvailable() <= 0))
+        .filter(v -> format == null || v.getFormat().equalsIgnoreCase(format))
+        .toList();
+  }
+
 }
