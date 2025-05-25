@@ -71,17 +71,17 @@ public class Artist {
     this.name = name;
   }
 
-  public List<Vinyl> getVynils() {
+  public List<Vinyl> getVinyls() {
     return this.Vinyls;
   }
 
-  public void setVynils(List<Vinyl> Vinyls) {
+  public void setVinyls(List<Vinyl> Vinyls) {
     this.Vinyls = Vinyls;
   }
 
   // Functions
 
-  public Integer getNumberOfVynils() {
+  public Integer getNumberOfVinyls() {
     return this.Vinyls.size();
   }
 

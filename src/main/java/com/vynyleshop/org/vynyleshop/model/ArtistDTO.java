@@ -10,26 +10,26 @@ public class ArtistDTO {
   private String name;
   private String bio;
   private List<String> images;
-  private List<VynilDTO> Vinyls;
+  private List<VinylDTO> vinyls;
 
   // Costructors
 
-  public ArtistDTO(Artist a, List<String> images, List<VynilDTO> Vinyls) {
+  public ArtistDTO(Artist a, List<String> images, List<VinylDTO> vinyls) {
     this.id = a.getId();
     this.name = a.getName();
     this.bio = a.getBio();
     this.images = images;
-    this.Vinyls = Vinyls;
+    this.vinyls = vinyls;
   }
 
   // Getters and Setters
 
-  public List<VynilDTO> getVynils() {
-    return this.Vinyls;
+  public List<VinylDTO> getVinyls() {
+    return this.vinyls;
   }
 
-  public void setVynils(List<VynilDTO> Vinyls) {
-    this.Vinyls = Vinyls;
+  public void setVinyls(List<VinylDTO> vinyls) {
+    this.vinyls = vinyls;
   }
 
   public Integer getId() {

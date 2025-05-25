@@ -3,9 +3,9 @@ package com.vynyleshop.org.vynyleshop.model;
 import java.time.Year;
 import java.util.List;
 
-// Adaptation of the Vinyl class to be used as a Data Transfer Object (DTO)
+// Adaptation of the vinyl class to be used as a Data Transfer Object (DTO)
 // This class will be transferred to the frontend via REST API
-public class VynilDTO {
+public class VinylDTO {
 
     private Integer id;
     private String name;
@@ -25,7 +25,7 @@ public class VynilDTO {
 
     // Costructors
     
-    public VynilDTO(Vinyl v, List<String> images) {
+    public VinylDTO(Vinyl v, List<String> images) {
         this.id = v.getId();
         this.name = v.getName();
         this.artistName = v.getArtist() != null ? v.getArtist().getName() : null;

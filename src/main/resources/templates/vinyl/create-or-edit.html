@@ -11,18 +11,18 @@
   <body>
     <!-- HEADER -->
     <header>
-      <th:block th:replace="~{fragments :: navbar(${isCreate} ? 'createVynil' : 'none')}"></th:block>
+      <th:block th:replace="~{fragments :: navbar(${isCreate} ? 'createVinyl' : 'none')}"></th:block>
     </header>
 
     <!-- MAIN -->
     <main class="mb-5">
-      <div class="container text-center text-md-start" th:object="${Vinyl}">
+      <div class="container text-center text-md-start" th:object="${vinyl}">
         <!-- Buttons -->
         <div class="w-100 text-start">
           <!-- Back Button -->
           <a
             class="btn btn-primary btn-lg"
-            th:href="@{/Vinyl}"> 
+            th:href="@{/vinyl}"> 
             <i class="fa-solid fa-chevron-left fa-lg"></i>
             <span class="d-none d-md-inline">Back to Vinyl List</span>
           </a>
@@ -33,7 +33,7 @@
 
         <!-- Form -->
         <form class="row g-3"
-          th:action="${isCreate} ? @{|/Vinyl/create|} : @{/Vinyl/edit/{id}(id=*{id})}"
+          th:action="${isCreate} ? @{|/vinyl/create|} : @{/vinyl/edit/{id}(id=*{id})}"
           method="POST">
           <!-- NAME -->
           <div class="col-md-6">
@@ -55,8 +55,17 @@
             </div>
           </div>
 
+          <!-- RELEASE YEAR -->
+          <div class="col-md-4">
+            <label for="inputYear" class="form-label">Release Year</label>
+            <input id="inputYear" class="form-control" type="text" th:field="*{releaseYear}" th:errorClass="is-invalid" />
+            <div class="invalid-feedback">
+              <ul><li th:each="error : ${#fields.errors('releaseYear')}" th:text="${error}"></li></ul>
+            </div>
+          </div>
+
           <!-- AVAILABLE -->
-          <div class="col-md-6">
+          <div class="col-md-4">
             <label for="inputAvailable" class="form-label">Available</label>
             <input id="inputAvailable" class="form-control" type="number" th:field="*{available}" th:errorClass="is-invalid" />
             <div class="invalid-feedback">
@@ -65,7 +74,7 @@
           </div>
 
           <!-- GENRE -->
-          <div class="col-md-6">
+          <div class="col-md-4">
             <label for="inputGenre" class="form-label">Genre</label>
             <input id="inputGenre" class="form-control" type="text" th:field="*{genre}" th:errorClass="is-invalid" />
             <div class="invalid-feedback">
@@ -97,8 +106,8 @@
 
           <!-- FORMAT -->
           <div class="col-md-4">
-            <label for="inputFormat" class="form-label">Format</label>
-            <input id="inputFormat" class="form-control" type="text" th:field="*{format}" th:errorClass="is-invalid" />
+            <label for="inputFormat" class="form-label">Format <i>(Only: 33, 45, 78)</i></label>
+            <input id="inputFormat" class="form-control" type="number" th:field="*{format}" th:errorClass="is-invalid" />
             <div class="invalid-feedback">
               <ul><li th:each="error : ${#fields.errors('format')}" th:text="${error}"></li></ul>
             </div>
@@ -119,24 +128,6 @@
             <input id="inputEdition" class="form-control" type="text" th:field="*{edition}" th:errorClass="is-invalid" />
             <div class="invalid-feedback">
               <ul><li th:each="error : ${#fields.errors('edition')}" th:text="${error}"></li></ul>
-            </div>
-          </div>
-
-          <!-- CODE -->
-          <div class="col-md-6">
-            <label for="inputCode" class="form-label">Code</label>
-            <input id="inputCode" class="form-control" type="text" th:field="*{code}" th:errorClass="is-invalid" />
-            <div class="invalid-feedback">
-              <ul><li th:each="error : ${#fields.errors('code')}" th:text="${error}"></li></ul>
-            </div>
-          </div>
-
-          <!-- RELEASE YEAR -->
-          <div class="col-md-6">
-            <label for="inputYear" class="form-label">Release Year</label>
-            <input id="inputYear" class="form-control" type="text" th:field="*{releaseYear}" th:errorClass="is-invalid" />
-            <div class="invalid-feedback">
-              <ul><li th:each="error : ${#fields.errors('releaseYear')}" th:text="${error}"></li></ul>
             </div>
           </div>
 

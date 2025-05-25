@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.vynyleshop.org.vynyleshop.model.Vinyl;
 
-public interface VynilRepository extends JpaRepository<Vinyl, Integer> {
+public interface VinylRepository extends JpaRepository<Vinyl, Integer> {
   // JpaRepository fornisce già metodi per CRUD e ricerca
 
   // Per la Ricerca per nome, creiamo un metodo personalizzato

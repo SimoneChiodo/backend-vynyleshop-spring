@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.vynyleshop.org.vynyleshop.model.Artist;
 import com.vynyleshop.org.vynyleshop.model.ArtistDTO;
-import com.vynyleshop.org.vynyleshop.model.VynilDTO;
+import com.vynyleshop.org.vynyleshop.model.VinylDTO;
 import com.vynyleshop.org.vynyleshop.service.ArtistService;
 import com.vynyleshop.org.vynyleshop.service.ImageService;
 
@@ -35,21 +35,21 @@ public class ArtistRestController {
   public List<ArtistDTO> index(Model model) {
     List<Artist> artists = artistService.findAll();
 
-    // NOTE: I'm using the constructor of the DTO to change each Vinyl object
+    // NOTE: I'm using the constructor of the DTO to change each vinyl object
     return artists.stream()
       .map(artist -> {
           List<String> artistImages = imageService.getImagesFor("artist", artist.getName());
 
-          List<VynilDTO> vynilDTOs = artist.getVynils() != null
-              ? artist.getVynils().stream()
+          List<VinylDTO> vinylDTOs = artist.getVinyls() != null
+              ? artist.getVinyls().stream()
                   .map(v -> {
-                      List<String> vinylImages = imageService.getImagesFor("Vinyl", v.getName());
-                      return new VynilDTO(v, vinylImages);
+                      List<String> vinylImages = imageService.getImagesFor("vinyl", v.getName());
+                      return new VinylDTO(v, vinylImages);
                   })
                   .toList()
               : List.of();
 
-          return new ArtistDTO(artist, artistImages, vynilDTOs);
+          return new ArtistDTO(artist, artistImages, vinylDTOs);
       })
       .toList();
   }
@@ -59,21 +59,21 @@ public class ArtistRestController {
   public ResponseEntity<ArtistDTO> show(@PathVariable Integer id) {
     Optional<Artist> result = artistService.findById(id);
     
-    // NOTE: I'm using the constructor of the DTO to change each Vinyl object
+    // NOTE: I'm using the constructor of the DTO to change each vinyl object
     if (result.isPresent()) {
       Artist artist = result.get();
       List<String> artistImages = imageService.getImagesFor("artist", artist.getName());
 
-      List<VynilDTO> vynilDTOs = artist.getVynils() != null
-          ? artist.getVynils().stream()
+      List<VinylDTO> vinylDTOs = artist.getVinyls() != null
+          ? artist.getVinyls().stream()
               .map(v -> {
-                  List<String> vinylImages = imageService.getImagesFor("Vinyl", v.getName());
-                  return new VynilDTO(v, vinylImages);
+                  List<String> vinylImages = imageService.getImagesFor("vinyl", v.getName());
+                  return new VinylDTO(v, vinylImages);
               })
               .toList()
           : List.of();
 
-      ArtistDTO dto = new ArtistDTO(artist, artistImages, vynilDTOs);
+      ArtistDTO dto = new ArtistDTO(artist, artistImages, vinylDTOs);
       return new ResponseEntity<ArtistDTO>(dto, HttpStatus.OK);
   }
       
@@ -85,21 +85,21 @@ public class ArtistRestController {
   public List<ArtistDTO> search(@RequestParam(required = false) String name) {
     List<Artist> artists = artistService.searchByName(name);
 
-    // NOTE: I'm using the constructor of the DTO to change each Vinyl object
+    // NOTE: I'm using the constructor of the DTO to change each vinyl object
     return artists.stream()
       .map(artist -> {
           List<String> artistImages = imageService.getImagesFor("artist", artist.getName());
 
-          List<VynilDTO> vynilDTOs = artist.getVynils() != null
-              ? artist.getVynils().stream()
+          List<VinylDTO> vinylDTOs = artist.getVinyls() != null
+              ? artist.getVinyls().stream()
                   .map(v -> {
-                      List<String> vinylImages = imageService.getImagesFor("Vinyl", v.getName());
-                      return new VynilDTO(v, vinylImages);
+                      List<String> vinylImages = imageService.getImagesFor("vinyl", v.getName());
+                      return new VinylDTO(v, vinylImages);
                   })
                   .toList()
               : List.of();
 
-          return new ArtistDTO(artist, artistImages, vynilDTOs);
+          return new ArtistDTO(artist, artistImages, vinylDTOs);
       })
       .toList();
   }

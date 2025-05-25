@@ -61,8 +61,8 @@
               <li class="nav-item">
                 <a
                   class="nav-link"
-                  th:href="@{/Vinyl}"
-                  th:classappend="${currentPage == 'vynilList'} ? 'active' : ''"
+                  th:href="@{/vinyl}"
+                  th:classappend="${currentPage == 'vinylList'} ? 'active' : ''"
                   >Vinyl list</a
                 >
               </li>
@@ -78,9 +78,9 @@
                 <a
                   sec:authorize="hasAuthority('ADMIN')"
                   class="nav-link"
-                  th:href="@{/Vinyl/create}"
-                  th:classappend="${currentPage == 'createVynil'} ? 'active' : ''"
-                  >Create Vinyl</a
+                  th:href="@{/vinyl/create}"
+                  th:classappend="${currentPage == 'createVinyl'} ? 'active' : ''"
+                  >Create vinyl</a
                 >
               </li>
               <li class="nav-item">
@@ -98,12 +98,12 @@
             <form
               class="d-flex mb-3 mb-lg-0 me-5"
               role="search"
-              th:action="@{/Vinyl/search}"
+              th:action="@{/vinyl/search}"
             >
               <input
                 class="form-control me-2"
                 type="search"
-                placeholder="Search Vinyl"
+                placeholder="Search vinyl"
                 name="name"
                 th:value="${searchName}"
                 aria-label="Search"

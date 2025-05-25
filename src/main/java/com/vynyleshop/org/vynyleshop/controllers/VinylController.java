@@ -16,16 +16,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.vynyleshop.org.vynyleshop.model.Vinyl;
 import com.vynyleshop.org.vynyleshop.service.ArtistService;
 import com.vynyleshop.org.vynyleshop.service.ImageService;
-import com.vynyleshop.org.vynyleshop.service.VynilService;
+import com.vynyleshop.org.vynyleshop.service.VinylService;
 
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping("/Vinyl")
-public class VynilController {
+@RequestMapping("/vinyl")
+public class VinylController {
   
   @Autowired
-  private VynilService vynilService;
+  private VinylService vinylService;
   @Autowired
   private ArtistService artistService;
   @Autowired
@@ -34,85 +34,85 @@ public class VynilController {
   // GET
   @GetMapping()
   public String index(Model model) {
-    model.addAttribute("vynilList", vynilService.findAll());
-    return "Vinyl/index";
+    model.addAttribute("vinylList", vinylService.findAll());
+    return "vinyl/index";
   }
 
   // SHOW
   @GetMapping("/{id}")
   public String show(@PathVariable Integer id, Model model) {
-    Vinyl Vinyl = vynilService.findById(id).get();
+    Vinyl vinyl = vinylService.findById(id).get();
   
     // Images List
-    List<String> images = imageService.getImagesFor("Vinyl", Vinyl.getName());
+    List<String> images = imageService.getImagesFor("vinyl", vinyl.getName());
 
-    Vinyl.setImages(images);
-    model.addAttribute("Vinyl", Vinyl);
+    vinyl.setImages(images);
+    model.addAttribute("vinyl", vinyl);
     
-    return "Vinyl/show";
+    return "vinyl/show";
   }
 
   // CREATE
   @GetMapping("/create")
   public String create(Model model) {
-    model.addAttribute("Vinyl", new Vinyl());
+    model.addAttribute("vinyl", new Vinyl());
     model.addAttribute("isCreate", true);
     model.addAttribute("artistList", artistService.findAll()); 
-    return "Vinyl/create-or-edit";
+    return "vinyl/create-or-edit";
   }
 
   // STORE
   @PostMapping("/create")
-  public String store(@Valid @ModelAttribute Vinyl formVynil, BindingResult bindingResult, Model model) {
+  public String store(@Valid @ModelAttribute Vinyl formVinyl, BindingResult bindingResult, Model model) {
     if (bindingResult.hasErrors()) {
-      model.addAttribute("Vinyl", formVynil);
+      model.addAttribute("vinyl", formVinyl);
       model.addAttribute("isCreate", true);
       model.addAttribute("artistList", artistService.findAll()); 
-      return "Vinyl/create-or-edit";
+      return "vinyl/create-or-edit";
     }
 
-    vynilService.create(formVynil);
-    return "redirect:/Vinyl";
+    vinylService.create(formVinyl);
+    return "redirect:/vinyl";
   }
 
   // EDIT
   @GetMapping("/edit/{id}")
   public String edit(@PathVariable Integer id, Model model) {
-    Vinyl Vinyl = vynilService.findById(id).get();
-    model.addAttribute("Vinyl", Vinyl);
+    Vinyl vinyl = vinylService.findById(id).get();
+    model.addAttribute("vinyl", vinyl);
     model.addAttribute("isCreate", false);
     model.addAttribute("artistList", artistService.findAll());
-    return "Vinyl/create-or-edit";
+    return "vinyl/create-or-edit";
   }
 
   // UPDATE
   @PostMapping("/edit/{id}")
-  public String update(@Valid @ModelAttribute Vinyl formVynil, BindingResult bindingResult, Model model) {
+  public String update(@Valid @ModelAttribute Vinyl formVinyl, BindingResult bindingResult, Model model) {
     if (bindingResult.hasErrors()) {
-      model.addAttribute("Vinyl", formVynil);
+      model.addAttribute("vinyl", formVinyl);
       model.addAttribute("isCreate", false);
       model.addAttribute("artistList", artistService.findAll());
-      return "Vinyl/create-or-edit";
+      return "vinyl/create-or-edit";
     }
 
-    vynilService.update(formVynil);
-    return "redirect:/Vinyl/" + formVynil.getId();
+    vinylService.update(formVinyl);
+    return "redirect:/vinyl/" + formVinyl.getId();
   }
 
   // DELETE
   @PostMapping("/delete/{id}")
   public String delete(@PathVariable Integer id) {
-    vynilService.delete(id);
-    return "redirect:/Vinyl";
+    vinylService.delete(id);
+    return "redirect:/vinyl";
   }
 
   // SEARCH
   @GetMapping("/search")
   public String search(@RequestParam String name, Model model) {
-    List<Vinyl> Vinyls = vynilService.searchByName(name);
-    model.addAttribute("vynilList", Vinyls);
+    List<Vinyl> vinyls = vinylService.searchByName(name);
+    model.addAttribute("vinylList", vinyls);
     model.addAttribute("searchName", name);
-    return "Vinyl/index";
+    return "vinyl/index";
   }
   
 }

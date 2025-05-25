@@ -16,14 +16,14 @@
 
     <!-- MAIN -->
     <main class="mb-5">
-      <div class="container text-center text-lg-start" th:object="${Vinyl}">
+      <div class="container text-center text-lg-start" th:object="${vinyl}">
         <!-- Buttons -->
         <div class="w-100 d-flex justify-content-between mb-3">
           <!-- Back Button -->
           <div class="left">
             <a
               class="btn btn-primary btn-lg"
-              th:href="@{/Vinyl}"> 
+              th:href="@{/vinyl}"> 
               <i class="fa-solid fa-chevron-left fa-lg"></i>
               <span class="d-none d-lg-inline">Back to Vinyl List</span>
             </a>
@@ -32,7 +32,7 @@
           <!-- Edit and Delete Buttons -->
           <div class="right"
               sec:authorize="hasAuthority('ADMIN')">
-            <a class="btn btn-warning btn-lg" th:href=@{/Vinyl/edit/{id}(id=*{id})}>
+            <a class="btn btn-warning btn-lg" th:href=@{/vinyl/edit/{id}(id=*{id})}>
               <i class="fa-solid fa-pencil fa-lg"></i>
             </a>
 
@@ -69,7 +69,7 @@
                   <div class="modal-footer">
                     <!-- Delete e' una chiamata POST, quindi necessita di un form -->
                     <form
-                      th:action="@{/Vinyl/delete/{id}(id=*{id})}"
+                      th:action="@{/vinyl/delete/{id}(id=*{id})}"
                       method="POST"
                     >
                       <button class="btn btn-danger" type="submit">
@@ -107,7 +107,6 @@
             <h3>Format: <span class="fw-normal">[[*{format}]]</span></h3>
           </div>
           <div class="col right">
-            <h3>Code: <span class="fw-normal">[[*{code}]]</span></h3>
             <h3>Edition: <span class="fw-normal">[[*{edition}]]</span></h3>
             <h3>Label: <span class="fw-normal">[[*{label}]]</span></h3>
             <h3>Country: <span class="fw-normal">[[*{country}]]</span></h3>
@@ -138,7 +137,7 @@
           <div class="col right">
             <h3 class="mb-2">Images: </h3>
             <div class="row row-cols-2 g-2 justify-content-center justify-content-lg-start">
-              <img th:each="image : *{images}" th:src="${image}" alt="Vinyl image" class="Vinyl-artist-images" />
+              <img th:each="image : *{images}" th:src="${image}" alt="Vinyl image" class="vinyl-artist-images" />
             </div>
           </div>
         </div>

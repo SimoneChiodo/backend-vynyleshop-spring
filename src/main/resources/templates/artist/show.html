@@ -99,7 +99,7 @@
         </h2>
         <div class="d-flex flex-column flex-md-row justify-content-between my-3">
           <h3>ID: <span class="fw-normal">[[*{id}]]</span></h3>
-          <h3>Numbers of Vinyl: <span class="fw-normal">[[*{getNumberOfVynils()}]]</span></h3>
+          <h3>Numbers of Vinyl: <span class="fw-normal">[[*{getNumberOfVinyls()}]]</span></h3>
         </div>
 
         <h3 class="mt-3">Biography: </h3>
@@ -109,10 +109,10 @@
           <div class="col left my-4 my-lg-0">
             <h3>Vinyls titles:</h2>
             <div class="d-flex flex-row justify-content-center justify-content-md-between align-items-center" 
-            th:each="Vinyl, iterStat : *{getVynils()}" th:object="${Vinyl}">
+            th:each="vinyl, iterStat : *{getVinyls()}" th:object="${vinyl}">
               <h4 class="fw-normal">[[${iterStat.index + 1}]]- [[*{getName()}]]</h4>
 
-              <a class="btn btn-primary m-1" th:href=@{/Vinyl/{id}(id=*{id})}>
+              <a class="btn btn-primary m-1" th:href=@{/vinyl/{id}(id=*{id})}>
                 <i class="fa-solid fa-eye"></i
               ></a>
             </div>
@@ -121,7 +121,7 @@
           <div class="col right">
             <h3>Images: </h3>
             <div class="row-cols-2 g-2 justify-content-center justify-content-lg-start">
-              <img th:each="image : *{images}" th:src="${image}" alt="Artist image" class="Vinyl-artist-images" />
+              <img th:each="image : *{images}" th:src="${image}" alt="Artist image" class="vinyl-artist-images" />
             </div>
           </div>
         </div>

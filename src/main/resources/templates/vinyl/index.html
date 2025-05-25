@@ -11,7 +11,7 @@
   <body>
     <!-- HEADER -->
     <header>
-      <th:block th:replace="~{fragments :: navbar('vynilList')}"></th:block>
+      <th:block th:replace="~{fragments :: navbar('vinylList')}"></th:block>
     </header>
 
     <!-- MAIN -->
@@ -27,24 +27,24 @@
               <th scope="col">ID</th>
               <th scope="col">Name</th>
               <th scope="col">Artist</th>
+              <th scope="col" class="d-none d-sm-table-cell">Label</th>
               <th scope="col" class="d-none d-md-table-cell">Format</th>
-              <th scope="col" class="d-none d-sm-table-cell">Code</th>
               <th scope="col">Actions</th>
             </tr>
           </thead>
           <tbody>
-            <tr th:each="Vinyl : ${vynilList}" th:object="${Vinyl}">
+            <tr th:each="vinyl : ${vinylList}" th:object="${vinyl}">
               <th scope="row">[[*{id}]]</th>
               <td>[[*{name}]]</td>
               <td>[[*{artist.getName()}]]</td>
+              <td class="d-none d-sm-table-cell">[[*{label}]]</td>
               <td class="d-none d-md-table-cell">[[*{format}]]</td>
-              <td class="d-none d-sm-table-cell">[[*{code}]]</td>
               <td class="p-0">
-                <a class="btn btn-primary btn-sm m-1" th:href=@{/Vinyl/{id}(id=*{id})}>
+                <a class="btn btn-primary btn-sm m-1" th:href=@{/vinyl/{id}(id=*{id})}>
                   <i class="fa-solid fa-eye"></i
                 ></a>
                 
-                <a class="btn btn-warning btn-sm m-1" th:href=@{/Vinyl/edit/{id}(id=*{id})} sec:authorize="hasAuthority('ADMIN')"
+                <a class="btn btn-warning btn-sm m-1" th:href=@{/vinyl/edit/{id}(id=*{id})} sec:authorize="hasAuthority('ADMIN')"
                 >
                   <i class="fa-solid fa-pencil"></i>
                 </a>
@@ -83,7 +83,7 @@
                       <div class="modal-footer">
                         <!-- Delete e' una chiamata POST, quindi necessita di un form -->
                         <form
-                          th:action="@{/Vinyl/delete/{id}(id=*{id})}"
+                          th:action="@{/vinyl/delete/{id}(id=*{id})}"
                           method="POST"
                         >
                           <button class="btn btn-danger" type="submit">
@@ -111,7 +111,7 @@
         sec:authorize="hasAuthority('ADMIN')">
           <a
             class="btn btn-outline-success btn-lg"
-            th:href="@{/Vinyl/create}"
+            th:href="@{/vinyl/create}"
           >
             <i class="fa-solid fa-plus fa-lg"></i> Add Vinyl
           </a>

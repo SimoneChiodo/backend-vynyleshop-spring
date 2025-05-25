@@ -7,47 +7,47 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.vynyleshop.org.vynyleshop.model.Vinyl;
-import com.vynyleshop.org.vynyleshop.repository.VynilRepository;
+import com.vynyleshop.org.vynyleshop.repository.VinylRepository;
 
 @Service
-public class VynilService {
+public class VinylService {
   
   @Autowired
-  private VynilRepository vynilRepository;
+  private VinylRepository vinylRepository;
 
   //INDEX
   public List<Vinyl> findAll() {
-    return vynilRepository.findAll();
+    return vinylRepository.findAll();
   }
 
   //SHOW
   public Optional<Vinyl> findById(Integer id) {
-    return vynilRepository.findById(id);
+    return vinylRepository.findById(id);
   }
 
   //CREATE
   public Vinyl create(Vinyl Vinyl) {
-    return vynilRepository.save(Vinyl);
+    return vinylRepository.save(Vinyl);
   }
 
   //UPDATE
   public Vinyl update(Vinyl Vinyl) {
-    return vynilRepository.save(Vinyl);
+    return vinylRepository.save(Vinyl);
   }
 
   //DELETE
   public void delete(Integer id) {
-    vynilRepository.deleteById(id);
+    vinylRepository.deleteById(id);
   }
 
   //SEARCH
   public List<Vinyl> searchByName(String name) {
-    return vynilRepository.findByNameContainingIgnoreCase(name);
+    return vinylRepository.findByNameContainingIgnoreCase(name);
   }
 
   //FILTERED INDEX
   public List<Vinyl> filter(String name, String artist, Integer releaseYear, Boolean available, String format) {
-    return vynilRepository.findAll().stream()
+    return vinylRepository.findAll().stream()
         .filter(v -> name == null || v.getName().toLowerCase().contains(name.toLowerCase()))
         .filter(v -> artist == null || v.getArtist().getName().toLowerCase().contains(artist.toLowerCase()))
         .filter(v -> releaseYear == null || v.getReleaseYear().getValue() == releaseYear.intValue())

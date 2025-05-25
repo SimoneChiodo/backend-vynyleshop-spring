@@ -34,7 +34,7 @@
             <tr th:each="artist : ${artistList}" th:object="${artist}">
               <th scope="row">[[*{id}]]</th>
               <td>[[*{name}]]</td>
-              <td>[[*{getNumberOfVynils()}]]</td>
+              <td>[[*{getNumberOfVinyls()}]]</td>
               <td class="p-0">
                 <a class="btn btn-primary btn-sm m-1" th:href=@{/artist/{id}(id=*{id})}>
                   <i class="fa-solid fa-eye"></i

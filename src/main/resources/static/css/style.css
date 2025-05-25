@@ -36,7 +36,7 @@
   text-decoration: underline;
 }
 
-.Vinyl-line {
+.vinyl-line {
   position: absolute;
   top: 0;
 
@@ -44,14 +44,14 @@
   width: 200px;
   overflow: hidden;
 }
-.Vinyl-line-left {
+.vinyl-line-left {
   left: 3%;
 }
-.Vinyl-line-right {
+.vinyl-line-right {
   right: 3%;
 }
 
-.Vinyl-img {
+.vinyl-img {
   width: auto;
   max-width: 100%;
   height: auto;
