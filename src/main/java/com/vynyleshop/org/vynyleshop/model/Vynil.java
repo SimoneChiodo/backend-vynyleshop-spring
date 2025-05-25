@@ -18,6 +18,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "vynil")
@@ -51,6 +52,7 @@ public class Vynil {
   @NotBlank(message = "Genre cannot be blank")
   private String genre; 
 
+  @Pattern(regexp = "33|45|78", message = "Format value must be 33, 45 or 78")
   @NotBlank(message = "Format cannot be blank")
   private String format;
   
