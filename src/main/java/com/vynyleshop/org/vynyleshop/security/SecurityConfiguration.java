@@ -14,9 +14,9 @@ public class SecurityConfiguration {
   @Bean
   SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http.authorizeHttpRequests(auth -> auth
-    .requestMatchers("vynil", "vynil/**").hasAnyAuthority("USER", "ADMIN")
+    .requestMatchers("Vinyl", "Vinyl/**").hasAnyAuthority("USER", "ADMIN")
     .requestMatchers("artist", "artist/**").hasAnyAuthority("USER", "ADMIN")
-    .requestMatchers("vynil/create", "vynil/edit/**", "vynil/delete/**").hasAuthority("ADMIN")
+    .requestMatchers("Vinyl/create", "Vinyl/edit/**", "Vinyl/delete/**").hasAuthority("ADMIN")
     .requestMatchers("artist/create", "artist/edit/**", "artist/delete/**").hasAuthority("ADMIN")
     .requestMatchers("/api/**").permitAll()
     .requestMatchers("/img/**").permitAll()

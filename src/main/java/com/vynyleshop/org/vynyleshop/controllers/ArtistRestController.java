@@ -35,7 +35,7 @@ public class ArtistRestController {
   public List<ArtistDTO> index(Model model) {
     List<Artist> artists = artistService.findAll();
 
-    // NOTE: I'm using the constructor of the DTO to change each Vynil object
+    // NOTE: I'm using the constructor of the DTO to change each Vinyl object
     return artists.stream()
       .map(artist -> {
           List<String> artistImages = imageService.getImagesFor("artist", artist.getName());
@@ -43,7 +43,7 @@ public class ArtistRestController {
           List<VynilDTO> vynilDTOs = artist.getVynils() != null
               ? artist.getVynils().stream()
                   .map(v -> {
-                      List<String> vinylImages = imageService.getImagesFor("vynil", v.getName());
+                      List<String> vinylImages = imageService.getImagesFor("Vinyl", v.getName());
                       return new VynilDTO(v, vinylImages);
                   })
                   .toList()
@@ -59,7 +59,7 @@ public class ArtistRestController {
   public ResponseEntity<ArtistDTO> show(@PathVariable Integer id) {
     Optional<Artist> result = artistService.findById(id);
     
-    // NOTE: I'm using the constructor of the DTO to change each Vynil object
+    // NOTE: I'm using the constructor of the DTO to change each Vinyl object
     if (result.isPresent()) {
       Artist artist = result.get();
       List<String> artistImages = imageService.getImagesFor("artist", artist.getName());
@@ -67,7 +67,7 @@ public class ArtistRestController {
       List<VynilDTO> vynilDTOs = artist.getVynils() != null
           ? artist.getVynils().stream()
               .map(v -> {
-                  List<String> vinylImages = imageService.getImagesFor("vynil", v.getName());
+                  List<String> vinylImages = imageService.getImagesFor("Vinyl", v.getName());
                   return new VynilDTO(v, vinylImages);
               })
               .toList()
@@ -85,7 +85,7 @@ public class ArtistRestController {
   public List<ArtistDTO> search(@RequestParam(required = false) String name) {
     List<Artist> artists = artistService.searchByName(name);
 
-    // NOTE: I'm using the constructor of the DTO to change each Vynil object
+    // NOTE: I'm using the constructor of the DTO to change each Vinyl object
     return artists.stream()
       .map(artist -> {
           List<String> artistImages = imageService.getImagesFor("artist", artist.getName());
@@ -93,7 +93,7 @@ public class ArtistRestController {
           List<VynilDTO> vynilDTOs = artist.getVynils() != null
               ? artist.getVynils().stream()
                   .map(v -> {
-                      List<String> vinylImages = imageService.getImagesFor("vynil", v.getName());
+                      List<String> vinylImages = imageService.getImagesFor("Vinyl", v.getName());
                       return new VynilDTO(v, vinylImages);
                   })
                   .toList()

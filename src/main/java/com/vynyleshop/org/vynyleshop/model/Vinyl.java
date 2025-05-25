@@ -21,8 +21,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 @Entity
-@Table(name = "vynil")
-public class Vynil {
+@Table(name = "Vinyl")
+public class Vinyl {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

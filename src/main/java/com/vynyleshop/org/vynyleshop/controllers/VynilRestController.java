@@ -3,7 +3,7 @@ package com.vynyleshop.org.vynyleshop.controllers;
 import java.util.List;
 import java.util.Optional;
 
-import com.vynyleshop.org.vynyleshop.model.Vynil;
+import com.vynyleshop.org.vynyleshop.model.Vinyl;
 import com.vynyleshop.org.vynyleshop.model.VynilDTO;
 import com.vynyleshop.org.vynyleshop.service.ImageService;
 import com.vynyleshop.org.vynyleshop.service.VynilService;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5000") // Allow access only to React app
-@RequestMapping("/api/vynil")
+@RequestMapping("/api/Vinyl")
 public class VynilRestController {
   
   @Autowired
@@ -31,13 +31,13 @@ public class VynilRestController {
   // GET - VynilDTO
   @GetMapping
   public List<VynilDTO> index() {
-    List<Vynil> vynils = vynilService.findAll();
+    List<Vinyl> Vinyls = vynilService.findAll();
 
-    // NOTE: I'm using the constructor of the DTO to change each Vynil object
-    return vynils.stream()
-        .map(vynil -> {
-            List<String> images = imageService.getImagesFor("vynil", vynil.getName());
-            return new VynilDTO(vynil, images);
+    // NOTE: I'm using the constructor of the DTO to change each Vinyl object
+    return Vinyls.stream()
+        .map(Vinyl -> {
+            List<String> images = imageService.getImagesFor("Vinyl", Vinyl.getName());
+            return new VynilDTO(Vinyl, images);
         })
         .toList();
   }
@@ -51,12 +51,12 @@ public class VynilRestController {
     @RequestParam(required = false) Boolean available,
     @RequestParam(required = false) String format
   ) {
-    List<Vynil> vynils = vynilService.filter(name, artist, releaseYear, available, format);
+    List<Vinyl> Vinyls = vynilService.filter(name, artist, releaseYear, available, format);
 
-    return vynils.stream()
-        .map(vynil -> {
-            List<String> images = imageService.getImagesFor("vynil", vynil.getName());
-            return new VynilDTO(vynil, images);
+    return Vinyls.stream()
+        .map(Vinyl -> {
+            List<String> images = imageService.getImagesFor("Vinyl", Vinyl.getName());
+            return new VynilDTO(Vinyl, images);
         })
         .toList();
   }
@@ -64,13 +64,13 @@ public class VynilRestController {
   // SHOW - VynilDTO
   @GetMapping("/{id}")
   public ResponseEntity<VynilDTO> get(@PathVariable Integer id) {
-    Optional<Vynil> result = vynilService.findById(id);
+    Optional<Vinyl> result = vynilService.findById(id);
 
-    // NOTE: I'm using the constructor of the DTO to change each Vynil object
+    // NOTE: I'm using the constructor of the DTO to change each Vinyl object
     if (result.isPresent()) {
-        Vynil vynil = result.get();
-        List<String> images = imageService.getImagesFor("vynil", vynil.getName());
-        VynilDTO dto = new VynilDTO(vynil, images);
+        Vinyl Vinyl = result.get();
+        List<String> images = imageService.getImagesFor("Vinyl", Vinyl.getName());
+        VynilDTO dto = new VynilDTO(Vinyl, images);
         return new ResponseEntity<VynilDTO>(dto, HttpStatus.OK);
     }
 
@@ -80,13 +80,13 @@ public class VynilRestController {
   // SEARCH - VynilDTO
   @GetMapping("/search")
   public List<VynilDTO> search(@RequestParam String name) {
-    List<Vynil> vynils = vynilService.searchByName(name);
+    List<Vinyl> Vinyls = vynilService.searchByName(name);
 
-    // NOTE: I'm using the constructor of the DTO to change each Vynil object
-    return vynils.stream()
-        .map(vynil -> {
-            List<String> images = imageService.getImagesFor("vynil", vynil.getName());
-            return new VynilDTO(vynil, images);
+    // NOTE: I'm using the constructor of the DTO to change each Vinyl object
+    return Vinyls.stream()
+        .map(Vinyl -> {
+            List<String> images = imageService.getImagesFor("Vinyl", Vinyl.getName());
+            return new VynilDTO(Vinyl, images);
         })
         .toList();
   }

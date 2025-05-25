@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.vynyleshop.org.vynyleshop.model.Vynil;
+import com.vynyleshop.org.vynyleshop.model.Vinyl;
 import com.vynyleshop.org.vynyleshop.service.ArtistService;
 import com.vynyleshop.org.vynyleshop.service.ImageService;
 import com.vynyleshop.org.vynyleshop.service.VynilService;
@@ -21,7 +21,7 @@ import com.vynyleshop.org.vynyleshop.service.VynilService;
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping("/vynil")
+@RequestMapping("/Vinyl")
 public class VynilController {
   
   @Autowired
@@ -35,84 +35,84 @@ public class VynilController {
   @GetMapping()
   public String index(Model model) {
     model.addAttribute("vynilList", vynilService.findAll());
-    return "vynil/index";
+    return "Vinyl/index";
   }
 
   // SHOW
   @GetMapping("/{id}")
   public String show(@PathVariable Integer id, Model model) {
-    Vynil vynil = vynilService.findById(id).get();
+    Vinyl Vinyl = vynilService.findById(id).get();
   
     // Images List
-    List<String> images = imageService.getImagesFor("vynil", vynil.getName());
+    List<String> images = imageService.getImagesFor("Vinyl", Vinyl.getName());
 
-    vynil.setImages(images);
-    model.addAttribute("vynil", vynil);
+    Vinyl.setImages(images);
+    model.addAttribute("Vinyl", Vinyl);
     
-    return "vynil/show";
+    return "Vinyl/show";
   }
 
   // CREATE
   @GetMapping("/create")
   public String create(Model model) {
-    model.addAttribute("vynil", new Vynil());
+    model.addAttribute("Vinyl", new Vinyl());
     model.addAttribute("isCreate", true);
     model.addAttribute("artistList", artistService.findAll()); 
-    return "vynil/create-or-edit";
+    return "Vinyl/create-or-edit";
   }
 
   // STORE
   @PostMapping("/create")
-  public String store(@Valid @ModelAttribute Vynil formVynil, BindingResult bindingResult, Model model) {
+  public String store(@Valid @ModelAttribute Vinyl formVynil, BindingResult bindingResult, Model model) {
     if (bindingResult.hasErrors()) {
-      model.addAttribute("vynil", formVynil);
+      model.addAttribute("Vinyl", formVynil);
       model.addAttribute("isCreate", true);
       model.addAttribute("artistList", artistService.findAll()); 
-      return "vynil/create-or-edit";
+      return "Vinyl/create-or-edit";
     }
 
     vynilService.create(formVynil);
-    return "redirect:/vynil";
+    return "redirect:/Vinyl";
   }
 
   // EDIT
   @GetMapping("/edit/{id}")
   public String edit(@PathVariable Integer id, Model model) {
-    Vynil vynil = vynilService.findById(id).get();
-    model.addAttribute("vynil", vynil);
+    Vinyl Vinyl = vynilService.findById(id).get();
+    model.addAttribute("Vinyl", Vinyl);
     model.addAttribute("isCreate", false);
     model.addAttribute("artistList", artistService.findAll());
-    return "vynil/create-or-edit";
+    return "Vinyl/create-or-edit";
   }
 
   // UPDATE
   @PostMapping("/edit/{id}")
-  public String update(@Valid @ModelAttribute Vynil formVynil, BindingResult bindingResult, Model model) {
+  public String update(@Valid @ModelAttribute Vinyl formVynil, BindingResult bindingResult, Model model) {
     if (bindingResult.hasErrors()) {
-      model.addAttribute("vynil", formVynil);
+      model.addAttribute("Vinyl", formVynil);
       model.addAttribute("isCreate", false);
       model.addAttribute("artistList", artistService.findAll());
-      return "vynil/create-or-edit";
+      return "Vinyl/create-or-edit";
     }
 
     vynilService.update(formVynil);
-    return "redirect:/vynil/" + formVynil.getId();
+    return "redirect:/Vinyl/" + formVynil.getId();
   }
 
   // DELETE
   @PostMapping("/delete/{id}")
   public String delete(@PathVariable Integer id) {
     vynilService.delete(id);
-    return "redirect:/vynil";
+    return "redirect:/Vinyl";
   }
 
   // SEARCH
   @GetMapping("/search")
   public String search(@RequestParam String name, Model model) {
-    List<Vynil> vynils = vynilService.searchByName(name);
-    model.addAttribute("vynilList", vynils);
+    List<Vinyl> Vinyls = vynilService.searchByName(name);
+    model.addAttribute("vynilList", Vinyls);
     model.addAttribute("searchName", name);
-    return "vynil/index";
+    return "Vinyl/index";
   }
   
 }

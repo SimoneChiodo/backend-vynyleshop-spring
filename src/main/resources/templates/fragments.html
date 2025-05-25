@@ -61,9 +61,9 @@
               <li class="nav-item">
                 <a
                   class="nav-link"
-                  th:href="@{/vynil}"
+                  th:href="@{/Vinyl}"
                   th:classappend="${currentPage == 'vynilList'} ? 'active' : ''"
-                  >Vynil list</a
+                  >Vinyl list</a
                 >
               </li>
               <li class="nav-item">
@@ -78,9 +78,9 @@
                 <a
                   sec:authorize="hasAuthority('ADMIN')"
                   class="nav-link"
-                  th:href="@{/vynil/create}"
+                  th:href="@{/Vinyl/create}"
                   th:classappend="${currentPage == 'createVynil'} ? 'active' : ''"
-                  >Create vynil</a
+                  >Create Vinyl</a
                 >
               </li>
               <li class="nav-item">
@@ -98,12 +98,12 @@
             <form
               class="d-flex mb-3 mb-lg-0 me-5"
               role="search"
-              th:action="@{/vynil/search}"
+              th:action="@{/Vinyl/search}"
             >
               <input
                 class="form-control me-2"
                 type="search"
-                placeholder="Search Vynil"
+                placeholder="Search Vinyl"
                 name="name"
                 th:value="${searchName}"
                 aria-label="Search"

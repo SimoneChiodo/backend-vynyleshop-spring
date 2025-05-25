@@ -36,7 +36,7 @@
   text-decoration: underline;
 }
 
-.vynil-line {
+.Vinyl-line {
   position: absolute;
   top: 0;
 
@@ -44,14 +44,14 @@
   width: 200px;
   overflow: hidden;
 }
-.vynil-line-left {
+.Vinyl-line-left {
   left: 3%;
 }
-.vynil-line-right {
+.Vinyl-line-right {
   right: 3%;
 }
 
-.vynil-img {
+.Vinyl-img {
   width: auto;
   max-width: 100%;
   height: auto;

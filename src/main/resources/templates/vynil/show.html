@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>VynyleShop - Vynil Detail</title>
+    <title>VynyleShop - Vinyl Detail</title>
 
     <!-- IMPORT CSS -->
     <th:block th:replace="~{fragments :: import-css}"></th:block>
@@ -16,23 +16,23 @@
 
     <!-- MAIN -->
     <main class="mb-5">
-      <div class="container text-center text-lg-start" th:object="${vynil}">
+      <div class="container text-center text-lg-start" th:object="${Vinyl}">
         <!-- Buttons -->
         <div class="w-100 d-flex justify-content-between mb-3">
           <!-- Back Button -->
           <div class="left">
             <a
               class="btn btn-primary btn-lg"
-              th:href="@{/vynil}"> 
+              th:href="@{/Vinyl}"> 
               <i class="fa-solid fa-chevron-left fa-lg"></i>
-              <span class="d-none d-lg-inline">Back to Vynil List</span>
+              <span class="d-none d-lg-inline">Back to Vinyl List</span>
             </a>
           </div>
 
           <!-- Edit and Delete Buttons -->
           <div class="right"
               sec:authorize="hasAuthority('ADMIN')">
-            <a class="btn btn-warning btn-lg" th:href=@{/vynil/edit/{id}(id=*{id})}>
+            <a class="btn btn-warning btn-lg" th:href=@{/Vinyl/edit/{id}(id=*{id})}>
               <i class="fa-solid fa-pencil fa-lg"></i>
             </a>
 
@@ -69,7 +69,7 @@
                   <div class="modal-footer">
                     <!-- Delete e' una chiamata POST, quindi necessita di un form -->
                     <form
-                      th:action="@{/vynil/delete/{id}(id=*{id})}"
+                      th:action="@{/Vinyl/delete/{id}(id=*{id})}"
                       method="POST"
                     >
                       <button class="btn btn-danger" type="submit">
@@ -91,7 +91,7 @@
         </div>
 
         <!-- Title -->
-        <h1 class="font-size-3 text-center">Vynil Detail</h1>
+        <h1 class="font-size-3 text-center">Vinyl Detail</h1>
 
         <!-- Data -->
         <h1 class="fw-normal">
@@ -138,7 +138,7 @@
           <div class="col right">
             <h3 class="mb-2">Images: </h3>
             <div class="row row-cols-2 g-2 justify-content-center justify-content-lg-start">
-              <img th:each="image : *{images}" th:src="${image}" alt="Vynil image" class="vynil-artist-images" />
+              <img th:each="image : *{images}" th:src="${image}" alt="Vinyl image" class="Vinyl-artist-images" />
             </div>
           </div>
         </div>

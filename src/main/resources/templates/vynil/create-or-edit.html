@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title th:text="${isCreate} ? 'VynyleShop - Vynil Create' : 'VynyleShop - Vynil Edit'"></title>
+    <title th:text="${isCreate} ? 'VynyleShop - Vinyl Create' : 'VynyleShop - Vinyl Edit'"></title>
 
     <!-- IMPORT CSS -->
     <th:block th:replace="~{fragments :: import-css}"></th:block>
@@ -16,24 +16,24 @@
 
     <!-- MAIN -->
     <main class="mb-5">
-      <div class="container text-center text-md-start" th:object="${vynil}">
+      <div class="container text-center text-md-start" th:object="${Vinyl}">
         <!-- Buttons -->
         <div class="w-100 text-start">
           <!-- Back Button -->
           <a
             class="btn btn-primary btn-lg"
-            th:href="@{/vynil}"> 
+            th:href="@{/Vinyl}"> 
             <i class="fa-solid fa-chevron-left fa-lg"></i>
-            <span class="d-none d-md-inline">Back to Vynil List</span>
+            <span class="d-none d-md-inline">Back to Vinyl List</span>
           </a>
         </div>
 
         <!-- Title -->
-        <h1 class="font-size-3 text-center" th:text="${isCreate} ? 'Vynil Create' : 'Vynil Edit'"></h1>
+        <h1 class="font-size-3 text-center" th:text="${isCreate} ? 'Vinyl Create' : 'Vinyl Edit'"></h1>
 
         <!-- Form -->
         <form class="row g-3"
-          th:action="${isCreate} ? @{|/vynil/create|} : @{/vynil/edit/{id}(id=*{id})}"
+          th:action="${isCreate} ? @{|/Vinyl/create|} : @{/Vinyl/edit/{id}(id=*{id})}"
           method="POST">
           <!-- NAME -->
           <div class="col-md-6">
@@ -160,7 +160,7 @@
 
           <!-- SUBMIT -->
           <div class="col-12 text-center mt-4">
-            <button class="btn btn-primary btn-lg" type="submit" th:text="${isCreate} ? 'Create Vynil' : 'Update Vynil'"></button>
+            <button class="btn btn-primary btn-lg" type="submit" th:text="${isCreate} ? 'Create Vinyl' : 'Update Vinyl'"></button>
           </div>
         </form>
     </main>

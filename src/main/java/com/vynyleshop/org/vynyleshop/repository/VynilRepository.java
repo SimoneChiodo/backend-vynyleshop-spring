@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.vynyleshop.org.vynyleshop.model.Vynil;
+import com.vynyleshop.org.vynyleshop.model.Vinyl;
 
-public interface VynilRepository extends JpaRepository<Vynil, Integer> {
+public interface VynilRepository extends JpaRepository<Vinyl, Integer> {
   // JpaRepository fornisce già metodi per CRUD e ricerca
 
   // Per la Ricerca per nome, creiamo un metodo personalizzato
-  public List<Vynil> findByNameContainingIgnoreCase(String name);
+  public List<Vinyl> findByNameContainingIgnoreCase(String name);
 }

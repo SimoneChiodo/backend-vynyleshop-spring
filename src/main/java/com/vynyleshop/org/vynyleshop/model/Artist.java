@@ -35,7 +35,7 @@ public class Artist {
 
   @OneToMany(mappedBy = "artist", cascade = { CascadeType.REMOVE })
   @JsonManagedReference
-  private List<Vynil> vynils;
+  private List<Vinyl> Vinyls;
 
   // Getters and Setters
 
@@ -71,18 +71,18 @@ public class Artist {
     this.name = name;
   }
 
-  public List<Vynil> getVynils() {
-    return this.vynils;
+  public List<Vinyl> getVynils() {
+    return this.Vinyls;
   }
 
-  public void setVynils(List<Vynil> vynils) {
-    this.vynils = vynils;
+  public void setVynils(List<Vinyl> Vinyls) {
+    this.Vinyls = Vinyls;
   }
 
   // Functions
 
   public Integer getNumberOfVynils() {
-    return this.vynils.size();
+    return this.Vinyls.size();
   }
 
 }
