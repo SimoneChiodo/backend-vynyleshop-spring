@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.vynyleshop.org.vynyleshop.model.Vinyl;
@@ -54,6 +55,17 @@ public class VinylService {
         .filter(v -> available == null || (available ? v.getAvailable() > 0 : v.getAvailable() <= 0))
         .filter(v -> format == null || v.getFormat().equalsIgnoreCase(format))
         .toList();
+  }
+
+  // PAGE INDEX
+  // Returns the first N vinyls (initial page), using ascending ID order
+  public List<Vinyl> findFirstN(int size) {
+    return vinylRepository.findByOrderByIdAsc(PageRequest.of(0, size));
+  }
+
+  // Returns the next N vinyls after a given ID, for efficient keyset pagination
+  public List<Vinyl> findNextN(Long afterId, int size) {
+    return vinylRepository.findByIdGreaterThanOrderByIdAsc(afterId, PageRequest.of(0, size));
   }
 
 }

@@ -33,13 +33,7 @@ public class VinylRestController {
   public List<VinylDTO> index() {
     List<Vinyl> vinyls = vinylService.findAll();
 
-    // NOTE: I'm using the constructor of the DTO to change each vinyl object
-    return vinyls.stream()
-        .map(vinyl -> {
-            List<String> images = imageService.getImagesFor("vinyl", vinyl.getName());
-            return new VinylDTO(vinyl, images);
-        })
-        .toList();
+    return assignImagesToVinyls(vinyls);
   }
 
   // FILTERED GET - VinylDTO
@@ -53,13 +47,24 @@ public class VinylRestController {
   ) {
     List<Vinyl> vinyls = vinylService.filter(name, artist, releaseYear, available, format);
 
-    return vinyls.stream()
-        .map(vinyl -> {
-            List<String> images = imageService.getImagesFor("vinyl", vinyl.getName());
-            return new VinylDTO(vinyl, images);
-        })
-        .toList();
+    return assignImagesToVinyls(vinyls);
   }
+
+  // PAGE GET - VinylDTO
+  @GetMapping("/page")
+  public List<VinylDTO> pagination(
+      @RequestParam(required = false) Long afterId,
+      @RequestParam(defaultValue = "20") int size) {
+      List<Vinyl> vinyls;
+
+      if (afterId == null) // First page
+          vinyls = vinylService.findFirstN(size);
+      else // Next pages
+          vinyls = vinylService.findNextN(afterId, size);
+
+      return assignImagesToVinyls(vinyls);
+  }
+
 
   // SHOW - VinylDTO
   @GetMapping("/{id}")
@@ -82,6 +87,12 @@ public class VinylRestController {
   public List<VinylDTO> search(@RequestParam String name) {
     List<Vinyl> vinyls = vinylService.searchByName(name);
 
+    return assignImagesToVinyls(vinyls);
+  }
+  
+
+  // Function to assign images to a vinyl list
+  private List<VinylDTO> assignImagesToVinyls(List<Vinyl> vinyls) {
     // NOTE: I'm using the constructor of the DTO to change each vinyl object
     return vinyls.stream()
         .map(vinyl -> {

@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.vynyleshop.org.vynyleshop.model.Artist;
 
 public interface ArtistRepository extends JpaRepository<Artist, Integer> {
-  // JpaRepository fornisce già metodi per CRUD e ricerca
+  // JpaRepository give us basic CRUD operations
 
-  // Per la Ricerca per nome, creiamo un metodo personalizzato
+  // To search by name, we create a custom method
   public List<Artist> findByNameContainingIgnoreCase(String name);
 }
