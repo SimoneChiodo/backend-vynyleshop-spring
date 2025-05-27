@@ -1,5 +1,6 @@
 package com.vynyleshop.org.vynyleshop.controllers;
 
+import java.time.Year;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,41 +29,57 @@ public class VinylRestController {
   @Autowired
   private ImageService imageService;
 
-  // GET - VinylDTO
-  @GetMapping
-  public List<VinylDTO> index() {
-    List<Vinyl> vinyls = vinylService.findAll();
-
-    return assignImagesToVinyls(vinyls);
-  }
-
-  // FILTERED GET - VinylDTO
+  // GET N VINYLS WITH OPTIONAL FILTERS - VinylDTO
   @GetMapping("/filter")
-  public List<VinylDTO> filter(
-    @RequestParam(required = false) String name,
-    @RequestParam(required = false) String artist,
-    @RequestParam(required = false) Integer releaseYear,
-    @RequestParam(required = false) Boolean available,
-    @RequestParam(required = false) String format
+  public ResponseEntity<List<VinylDTO>> getVinyls(
+    @RequestParam Optional<Integer> lastId,
+    @RequestParam int limit,
+    @RequestParam Optional<String> name,
+    @RequestParam Optional<String> artistName,
+    @RequestParam Optional<Year> releaseYear,
+    @RequestParam Optional<Integer> available,
+    @RequestParam Optional<String> format
   ) {
-    List<Vinyl> vinyls = vinylService.filter(name, artist, releaseYear, available, format);
-
-    return assignImagesToVinyls(vinyls);
+    // The starting ID is optional, so the default value is 0 (from the start)
+    int startFrom = lastId.orElse(0); 
+    // Get the N vinyls with the optional filters
+    List<Vinyl> vinyls = vinylService.getVinylsFiltered(
+        startFrom, limit, name, artistName, releaseYear, available, format
+    );
+    // Assign the images
+    List<VinylDTO> dtos = assignImagesToVinyls(vinyls); 
+    
+    return ResponseEntity.ok(dtos);
   }
 
-  // PAGE GET - VinylDTO
-  @GetMapping("/page")
-  public List<VinylDTO> pagination(
-      @RequestParam(required = false) Long afterId,
-      @RequestParam(defaultValue = "20") int size) {
-      List<Vinyl> vinyls;
+  // RANDOM N VINYLS - VinylDTO
+  @GetMapping("/random")
+  public List<VinylDTO> getRandomVinyls(@RequestParam int limit) {
+    // Get the N random vinyls
+    List<Vinyl> vinyls = vinylService.getRandomVinyls(limit);
 
-      if (afterId == null) // First page
-          vinyls = vinylService.findFirstN(size);
-      else // Next pages
-          vinyls = vinylService.findNextN(afterId, size);
+    // Assign the images and return the result
+    return vinyls.stream()
+      .map(v -> {
+        List<String> images = imageService.getImagesFor("vinyl", v.getName());
+        return new VinylDTO(v, images);
+      })
+      .toList();
+  }
 
-      return assignImagesToVinyls(vinyls);
+  // LAST CREATED N VINYLS - VinylDTO
+  @GetMapping("/latest")
+  public List<VinylDTO> getLatestVinyls(@RequestParam int limit) {
+    // Get the last created N vinyls
+    List<Vinyl> latestVinyls = vinylService.getLatestVinyls(limit);
+
+    // Assign the images and return the result
+    return latestVinyls.stream()
+      .map(vinyl -> {
+        List<String> vinylImages = imageService.getImagesFor("vinyl", vinyl.getName());
+        return new VinylDTO(vinyl, vinylImages);
+      })
+      .toList();
   }
 
 
@@ -81,15 +98,6 @@ public class VinylRestController {
 
     return new ResponseEntity<VinylDTO>(HttpStatus.NOT_FOUND);
   }
-  
-  // SEARCH - VinylDTO
-  @GetMapping("/search")
-  public List<VinylDTO> search(@RequestParam String name) {
-    List<Vinyl> vinyls = vinylService.searchByName(name);
-
-    return assignImagesToVinyls(vinyls);
-  }
-  
 
   // Function to assign images to a vinyl list
   private List<VinylDTO> assignImagesToVinyls(List<Vinyl> vinyls) {

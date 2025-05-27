@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.vynyleshop.org.vynyleshop.model.Artist;
@@ -49,4 +51,27 @@ public class ArtistService {
     // Search by name
     return artistRepository.findByNameContainingIgnoreCase(name);
   }
+
+  //GET N ARTIST WITH OPTIONAL FILTERS
+  public List<Artist> getArtistsFiltered(int startFrom, int limit, Optional<String> name) {
+    // Retrieve just N artist
+    Pageable pageable = PageRequest.of(0, limit);
+
+    // If i filter by name
+    if (name.isPresent() && !name.get().isBlank()) 
+      return artistRepository.findByNameContainingIgnoreCaseAndIdGreaterThanOrderByIdAsc(
+          name.get(), startFrom, pageable
+      );
+    // If i don't need to filter
+    else 
+      return artistRepository.findByIdGreaterThanOrderByIdAsc(
+          startFrom, pageable
+      );
+  }
+
+  //GET N RANDOM ARTISTS
+  public List<Artist> getRandomArtists(int limit) {
+    return artistRepository.findRandomArtists(limit);
+  }
+
 }

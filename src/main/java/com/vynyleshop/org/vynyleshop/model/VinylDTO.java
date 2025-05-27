@@ -25,6 +25,9 @@ public class VinylDTO {
 
     // Costructors
     
+    public VinylDTO() {
+    }
+    
     public VinylDTO(Vinyl v, List<String> images) {
         this.id = v.getId();
         this.name = v.getName();
