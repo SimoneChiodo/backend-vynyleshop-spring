@@ -84,7 +84,7 @@
 
           <!-- SIDEONE -->
           <div class="col-md-6">
-            <label for="inputSideone" class="form-label">Sideone <i>(Example: ["Song 1 (mm:ss)", "Song 2 (mm:ss)"])</i></label>
+            <label for="inputSideone" class="form-label">Sideone <i>(Example: Song 1 (mm:ss), Song 2 (mm:ss))</i></label>
             <textarea id="inputSideone" class="form-control" rows="2" th:field="*{sideone}" th:errorClass="is-invalid"></textarea>
             <div class="invalid-feedback">
               <ul>
@@ -95,7 +95,7 @@
 
           <!-- SIDETWO -->
           <div class="col-md-6">
-            <label for="inputSidetwo" class="form-label">Sidetwo <i>(Example: ["Song 1 (mm:ss)", "Song 2 (mm:ss)"])</i></label>
+            <label for="inputSidetwo" class="form-label">Sidetwo <i>(Example: Song 1 (mm:ss), Song 2 (mm:ss))</i></label>
             <textarea id="inputSidetwo" class="form-control" rows="2" th:field="*{sidetwo}" th:errorClass="is-invalid"></textarea>
             <div class="invalid-feedback">
               <ul>
@@ -104,10 +104,14 @@
             </div>
           </div>
 
-          <!-- FORMAT -->
+          <!-- FORMAT (SELECT) -->
           <div class="col-md-4">
-            <label for="inputFormat" class="form-label">Format <i>(Only: 33, 45, 78)</i></label>
-            <input id="inputFormat" class="form-control" type="number" th:field="*{format}" th:errorClass="is-invalid" />
+            <label for="inputFormat" class="form-label">Format</label>
+            <select id="inputFormat" class="form-select" th:field="*{format}" th:errorClass="is-invalid">
+              <option th:value="33" th:text="33"></option>
+              <option th:value="45" th:text="45"></option>
+              <option th:value="78" th:text="78"></option>
+            </select>
             <div class="invalid-feedback">
               <ul><li th:each="error : ${#fields.errors('format')}" th:text="${error}"></li></ul>
             </div>

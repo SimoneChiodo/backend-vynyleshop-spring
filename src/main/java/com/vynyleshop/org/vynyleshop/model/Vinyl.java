@@ -1,7 +1,9 @@
 package com.vynyleshop.org.vynyleshop.model;
 
 import java.time.Year;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -18,6 +20,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Pattern;
 
 @Entity
@@ -63,6 +66,7 @@ public class Vinyl {
   private String edition;
   
   @NotNull(message = "ReleaseYear cannot be null")
+  @PastOrPresent(message = "Release year must be in the past or present")
   private Year releaseYear;
   
   @NotBlank(message = "Label cannot be blank")
@@ -186,31 +190,37 @@ public class Vinyl {
   }
 
   // Methods to convert tracklist to/from List<String>
-  // Assuming tracklist is a JSON array string like: ["Track 1", "Track 2", "Track 3"]
   public List<String> getSideoneAsList() {
-    try {
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(this.sideone, new TypeReference<List<String>>() {});
-    } catch (Exception e) {
-        return List.of(); // Return an empty list in case of error
-    }
+    return stringToList(this.sideone);
   }
   public List<String> getSidetwoAsList() {
-    try {
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(this.sidetwo, new TypeReference<List<String>>() {});
-    } catch (Exception e) {
-        return List.of(); // Return an empty list in case of error
-    }
+    return stringToList(this.sidetwo);
   }
 
   public void setSideoneFromList(List<String> tracks) throws Exception {
-      ObjectMapper objectMapper = new ObjectMapper();
-      this.sideone = objectMapper.writeValueAsString(tracks);
+    this.sideone = listToString(tracks);
   }
   public void setSidetwoFromList(List<String> tracks) throws Exception {
-      ObjectMapper objectMapper = new ObjectMapper();
-      this.sidetwo= objectMapper.writeValueAsString(tracks);
+    this.sidetwo = listToString(tracks);
+  }
+
+  // Method to convert a comma-separated String to a List<String>
+  private static List<String> stringToList(String str){
+    // In case of error
+    if (str == null || str.trim().isEmpty()) 
+      return List.of();
+
+    return Arrays.stream(str.split(",\\s*")) 
+      .collect(Collectors.toList());
+  }
+
+  // Method to convert a List<String> to a comma-separated String
+  private static String listToString(List<String> list) {
+    // In case of error
+    if (list == null || list.isEmpty()) 
+      return "";
+    
+    return String.join(", ", list);
   }
 
 }
