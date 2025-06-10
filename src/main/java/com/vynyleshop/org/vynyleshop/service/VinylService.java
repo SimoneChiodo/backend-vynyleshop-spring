@@ -127,15 +127,4 @@ public class VinylService {
     return vinylRepository.findAll(spec, pageable).getContent();
   }
 
-  //GET N RANDOM VYNILS
-  public List<Vinyl> getRandomVinyls(int limit) {
-    return vinylRepository.findRandomVinyls(limit);
-  }
-
-  //GET LAST CREATED N VYNILS
-  public List<Vinyl> getLatestVinyls(int limit) {
-    Pageable pageable = PageRequest.of(0, limit);
-    return vinylRepository.findAllByOrderByIdDesc(pageable);
-  }
-
 }

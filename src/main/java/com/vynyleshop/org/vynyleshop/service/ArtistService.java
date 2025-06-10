@@ -69,9 +69,4 @@ public class ArtistService {
       );
   }
 
-  //GET N RANDOM ARTISTS
-  public List<Artist> getRandomArtists(int limit) {
-    return artistRepository.findRandomArtists(limit);
-  }
-
 }

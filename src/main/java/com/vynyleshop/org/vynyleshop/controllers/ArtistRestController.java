@@ -43,54 +43,58 @@ public class ArtistRestController {
             startFrom, limit, name
         );
 
-        return artists.stream()
-        .map(artist -> {
-                // Assign the images to the artist
-                List<String> artistImages = imageService.getImagesFor("artist", artist.getName());
-
-                // Assign the images to the vinyls of the artist
-                List<VinylDTO> vinylDTOs = artist.getVinyls() != null
-                    ? artist.getVinyls().stream()
-                        .map(v -> new VinylDTO(v, imageService.getImagesFor("vinyl", v.getName())))
-                        .toList()
-                    : List.of();
-
-                return new ArtistDTO(artist, artistImages, vinylDTOs);
-            })
-            .toList();
+        return addImagesToArtists(artists);
     }
 
-    // RANDOM N ARTISTS - ArtistDTO
-    @GetMapping("/random")
-    public List<ArtistDTO> getRandomArtists(@RequestParam int limit) {
-        // Get the N random artists
-        List<Artist> artists = artistService.getRandomArtists(limit);
-
-        return artists.stream()
-            .map(artist -> {
-                // Assign the images to the artist
-                List<String> artistImages = imageService.getImagesFor("artist", artist.getName());
-
-                // Assign the images to the vinyls of the artist
-                List<VinylDTO> vinylDTOs = artist.getVinyls() != null
-                    ? artist.getVinyls().stream()
-                        .map(v -> new VinylDTO(v, imageService.getImagesFor("vinyl", v.getName())))
-                        .toList()
-                    : List.of();
-
-                return new ArtistDTO(artist, artistImages, vinylDTOs);
-            })
-            .toList();
-    }
-
-    // SHOW
+    // SHOW - ArtistDTO
     @GetMapping("/{id}")
     public ResponseEntity<ArtistDTO> show(@PathVariable Integer id) {
         Optional<Artist> result = artistService.findById(id);
         
         // NOTE: I'm using the constructor of the DTO to change each vinyl object
         if (result.isPresent()) {
-        Artist artist = result.get();
+            Artist artist = result.get();
+            ArtistDTO dto = addImagesToArtist(artist);
+            return new ResponseEntity<ArtistDTO>(dto, HttpStatus.OK);
+        }
+        
+        return new ResponseEntity<ArtistDTO>(HttpStatus.NOT_FOUND);
+    }
+
+    // GET RANDOM ARTIST - ArtistDTO
+    @GetMapping("/random")
+    public ResponseEntity<ArtistDTO> getRandomArtist() {
+        // Get all the artists
+        List<Artist> artistsList = artistService.findAll();
+        // Take one random
+        int randomIndex = (int) (Math.random() * artistsList.size());
+        Artist randomArtist = artistsList.get(randomIndex);
+
+        // NOTE: I'm using the constructor of the DTO to change each vinyl object
+        if (randomArtist != null) {
+            ArtistDTO dto = addImagesToArtist(randomArtist);
+            return new ResponseEntity<ArtistDTO>(dto, HttpStatus.OK);
+        }
+        
+        return new ResponseEntity<ArtistDTO>(HttpStatus.NOT_FOUND);
+    }
+
+    // Methods -----
+
+    private List<ArtistDTO> addImagesToArtists(List<Artist> artists) {
+        return artists.stream()
+            .map(artist -> {
+                List<String> images = imageService.getImagesFor("artist", artist.getName());
+                return new ArtistDTO(artist, images, artist.getVinyls() != null
+                    ? artist.getVinyls().stream()
+                        .map(v -> new VinylDTO(v, imageService.getImagesFor("vinyl", v.getName())))
+                        .toList()
+                    : List.of());
+            })
+            .toList();
+    }
+    
+    private ArtistDTO addImagesToArtist(Artist artist) {
         List<String> artistImages = imageService.getImagesFor("artist", artist.getName());
 
         List<VinylDTO> vinylDTOs = artist.getVinyls() != null
@@ -102,11 +106,7 @@ public class ArtistRestController {
                 .toList()
             : List.of();
 
-        ArtistDTO dto = new ArtistDTO(artist, artistImages, vinylDTOs);
-        return new ResponseEntity<ArtistDTO>(dto, HttpStatus.OK);
-    }
-        
-        return new ResponseEntity<ArtistDTO>(HttpStatus.NOT_FOUND);
+        return new ArtistDTO(artist, artistImages, vinylDTOs);
     }
     
 }

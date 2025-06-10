@@ -1,6 +1,7 @@
 package com.vynyleshop.org.vynyleshop.controllers;
 
 import java.time.Year;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,41 +48,10 @@ public class VinylRestController {
         startFrom, limit, name, artistName, releaseYear, available, format
     );
     // Assign the images
-    List<VinylDTO> dtos = assignImagesToVinyls(vinyls); 
+    List<VinylDTO> dtos = addImagesToVinyls(vinyls); 
     
     return ResponseEntity.ok(dtos);
   }
-
-  // RANDOM N VINYLS - VinylDTO
-  @GetMapping("/random")
-  public List<VinylDTO> getRandomVinyls(@RequestParam int limit) {
-    // Get the N random vinyls
-    List<Vinyl> vinyls = vinylService.getRandomVinyls(limit);
-
-    // Assign the images and return the result
-    return vinyls.stream()
-      .map(v -> {
-        List<String> images = imageService.getImagesFor("vinyl", v.getName());
-        return new VinylDTO(v, images);
-      })
-      .toList();
-  }
-
-  // LAST CREATED N VINYLS - VinylDTO
-  @GetMapping("/latest")
-  public List<VinylDTO> getLatestVinyls(@RequestParam int limit) {
-    // Get the last created N vinyls
-    List<Vinyl> latestVinyls = vinylService.getLatestVinyls(limit);
-
-    // Assign the images and return the result
-    return latestVinyls.stream()
-      .map(vinyl -> {
-        List<String> vinylImages = imageService.getImagesFor("vinyl", vinyl.getName());
-        return new VinylDTO(vinyl, vinylImages);
-      })
-      .toList();
-  }
-
 
   // SHOW - VinylDTO
   @GetMapping("/{id}")
@@ -91,8 +61,52 @@ public class VinylRestController {
     // NOTE: I'm using the constructor of the DTO to change each vinyl object
     if (result.isPresent()) {
         Vinyl vinyl = result.get();
-        List<String> images = imageService.getImagesFor("vinyl", vinyl.getName());
-        VinylDTO dto = new VinylDTO(vinyl, images);
+        VinylDTO dto = addImagesToVinyl(vinyl);
+        return new ResponseEntity<VinylDTO>(dto, HttpStatus.OK);
+    }
+
+    return new ResponseEntity<VinylDTO>(HttpStatus.NOT_FOUND);
+  }
+
+  // GET RANDOM VINYLS - VinylDTO
+  @GetMapping("/randoms")
+  public ResponseEntity<List<VinylDTO>> getRandomVinyls(
+    @RequestParam int limit) {
+    // Get all the vinyls
+    List<Vinyl> vinylList = vinylService.findAll();
+
+    // In case of error
+    if (vinylList.isEmpty()) 
+      return new ResponseEntity<List<VinylDTO>>(HttpStatus.NOT_FOUND);
+
+    // If the limit is greater than the size of the vinyl list, set it to the size of the list
+    limit = Math.min(limit, vinylList.size());
+
+    // Shuffle the list
+    Collections.shuffle(vinylList);
+
+    // Take the first N vinyls
+    List<Vinyl> randomVinyls = vinylList.stream().limit(limit).toList();
+
+    // Assign the images
+    List<VinylDTO> dto = addImagesToVinyls(randomVinyls);
+
+    return new ResponseEntity<List<VinylDTO>>(dto, HttpStatus.OK);
+  }
+
+  // GET RANDOM VINYL - VinylDTO
+  @GetMapping("/random")
+  public ResponseEntity<VinylDTO> getRandomVinyl() {
+    // Get all the vinyls
+    List<Vinyl> vinylList = vinylService.findAll();
+    // Take one random
+    int randomIndex = (int) (Math.random() * vinylList.size());
+    Vinyl randomVinyl = vinylList.get(randomIndex);
+
+    // Assign the images and return the result
+    // NOTE: I'm using the constructor of the DTO to change each vinyl object
+    if (randomVinyl != null) {
+        VinylDTO dto = addImagesToVinyl(randomVinyl);
         return new ResponseEntity<VinylDTO>(dto, HttpStatus.OK);
     }
 
@@ -100,7 +114,7 @@ public class VinylRestController {
   }
 
   // Function to assign images to a vinyl list
-  private List<VinylDTO> assignImagesToVinyls(List<Vinyl> vinyls) {
+  private List<VinylDTO> addImagesToVinyls(List<Vinyl> vinyls) {
     // NOTE: I'm using the constructor of the DTO to change each vinyl object
     return vinyls.stream()
         .map(vinyl -> {
@@ -108,6 +122,11 @@ public class VinylRestController {
             return new VinylDTO(vinyl, images);
         })
         .toList();
+  }
+
+  private VinylDTO addImagesToVinyl(Vinyl vinyl) {
+    List<String> images = imageService.getImagesFor("vinyl", vinyl.getName());
+    return new VinylDTO(vinyl, images);
   }
 
 }
