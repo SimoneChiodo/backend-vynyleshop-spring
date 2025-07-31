@@ -1,50 +1,11 @@
-# Descrizione
+# Progetto Java: Backend VynyleShop
 
-L’obiettivo di questo progetto è creare un backoffice in Spring e un frontend in React per gestire e visualizzare un insieme di dati a vostra scelta.
+### Nome repository frontend: frontend-vynyleshop-vite
 
-## Parte 1: Backoffice in Spring
+## Descrizione
 
-Dovrete sviluppare un backoffice con autenticazione gestita da Spring Security. Una volta loggato, l'utente potrà gestire un'entità a scelta, come:
+Il progetto consiste nello sviluppo di un sistema completo per la vendita di dischi in vinile, composto da due parti principali:
 
-- Videogiochi 🎮
-- Film 🎬
-- Album musicali 💿
-- Libri o Fumetti📚
-- o qualsiasi altra entità vi venga in mente!
+Backoffice in Spring Boot: con autenticazione tramite Spring Security, permette agli amministratori di gestire prodotti (dischi) e artisti con operazioni CRUD complete. Le entità sono correlate tra loro tramite relazioni realistiche (ad esempio, un disco associato a uno o più artisti). L’interfaccia di gestione è realizzata con Thymeleaf e arricchita da Bootstrap e JavaScript per migliorare l’esperienza utente.
 
-Per questa entità dovrete implementare tutte le operazioni CRUD (Creazione, Lettura, Aggiornamento, Eliminazione).
-
-Oltre a questa, dovrà esserci almeno una seconda entità collegata alla prima con una relazione 1-N o N-N.
-
-Esempi:
-
-- Se avete scelto i videogiochi, potreste avere la tabella delle console su cui è disponibile un gioco (PS5, Xbox, Switch).
-- Se avete scelto i film, potreste collegarli ai generi cinematografici (Azione, Commedia, Horror).
-- Potreste anche scegliere di avere 2 entità relazionate, ad esempio, nel caso di videogiochi, sia la console che il genere (Avventura, Picchiaduro, GDR)
-
-Tutto il backoffice deve essere realizzato usando Thymeleaf, ma potete aiutarvi con JS per eventuali necessità di logiche frontend. Siete anche liberi di usare librerie JavaScript esterne se vi torna comodo.
-
-## Parte 2: Sito guest in React
-
-Per i visitatori non autenticati (guest) dovrete creare un'app in React che permetta di:
-
-✅ Visualizzare la lista degli elementi (videogiochi, film, ecc.)
-✅ Vedere i dettagli di un singolo elemento
-✅ Mostrare anche le informazioni collegate (es. le categorie di appartenenza)
-
-Questa app dovrà comunicare con il backend tramite chiamate AJAX ad API REST, quindi nel backend dovrete creare un set di endpoint API per recuperare i dati.
-
-## 🎯Obiettivo
-
-Alla fine di questo progetto avrete realizzato un’app completa con:
-✅ Un backoffice in Spring con autenticazione e gestione CRUD
-✅ Un frontend in React che mostra i dati in modo chiaro e interattivo
-✅ Relazioni tra le entità per una gestione più realistica delle informazioni
-
-### 💡 Consigli
-
-- Strutturate bene le relazioni nel database prima di partire.
-- Usate Postman o strumenti simili per testare le API.
-- Curate l’UI del frontend per rendere la navigazione intuitiva.
-
-Buon lavoro! 🚀
+Frontend React: applicazione dedicata agli utenti finali (guest) che consente di esplorare il catalogo, filtrare e cercare dischi e artisti, visualizzare dettagli approfonditi con un’interfaccia reattiva e moderna. La comunicazione con il backend avviene tramite API REST, garantendo un flusso dati fluido e aggiornato.
