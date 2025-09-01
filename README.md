@@ -1,6 +1,6 @@
 # Progetto Java: Backend VynyleShop
 
-### Nome repository frontend: frontend-vynyleshop-vite
+### Repository frontend: [frontend-vynyleshop-vite](https://github.com/SimoneChiodo/frontend-vynyleshop-vite.git)
 
 ## Descrizione
 
